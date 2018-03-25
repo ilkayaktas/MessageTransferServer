@@ -1,6 +1,7 @@
 package edu.ilkayaktas.healthnetwork.controller;
 
 import edu.ilkayaktas.healthnetwork.model.EchoModel;
+import edu.ilkayaktas.healthnetwork.model.FooService;
 import edu.ilkayaktas.healthnetwork.service.SocketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class SocketController {
+
+    @Autowired
+    FooService fooService;
 
     @Autowired
     SocketService socketService;
