@@ -13,13 +13,34 @@ import javax.annotation.PostConstruct;
 public class DataManager implements IDataManager{
 
     @Autowired
-    private IDbHelper mIDbHelper;
+    private IDbHelper dbHelper;
 
     @Autowired
-    private IApiHelper mIApiHelper;
+    private IApiHelper apiHelper;
 
     @PostConstruct
     public void init() {
         System.out.println("DataManager is constructed!");
+    }
+
+    @Override
+    public boolean saveUser() {
+
+        return false;
+    }
+
+    @Override
+    public boolean isUserOnline(String userId) {
+        return dbHelper.isUserOnline(userId);
+    }
+
+    @Override
+    public void setUserOnline(String userId) {
+        dbHelper.setUserOnline(userId);
+    }
+
+    @Override
+    public void setUserOffline(String userId) {
+        dbHelper.setUserOffline(userId);
     }
 }

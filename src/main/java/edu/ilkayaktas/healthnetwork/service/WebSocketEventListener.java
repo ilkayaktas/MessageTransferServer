@@ -29,15 +29,7 @@ public class WebSocketEventListener {
 
         System.out.println("Received a new web socket disconnection");
 
-        /*String username = (String) headerAccessor.getSessionAttributes().get("username");
-        if(username != null) {
-            logger.info("User Disconnected : " + username);
+        messagingTemplate.convertAndSend("/topic/public", "Someone is left!");
 
-            ChatMessage chatMessage = new ChatMessage();
-            chatMessage.setType(ChatMessage.MessageType.LEAVE);
-            chatMessage.setSender(username);
-
-            messagingTemplate.convertAndSend("/topic/public", chatMessage);
-        }*/
     }
 }

@@ -1,4 +1,4 @@
-package edu.ilkayaktas.healthnetwork.model;
+package edu.ilkayaktas.healthnetwork.model.others;
 
 /**
  * Created by ilkayaktas on 24.03.2018 at 02:15.

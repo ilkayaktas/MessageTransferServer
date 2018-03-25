@@ -1,6 +1,6 @@
 package edu.ilkayaktas.healthnetwork.service;
 
-import edu.ilkayaktas.healthnetwork.model.EchoModel;
+import edu.ilkayaktas.healthnetwork.model.others.EchoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;

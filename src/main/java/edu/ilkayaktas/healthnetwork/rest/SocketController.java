@@ -1,7 +1,7 @@
-package edu.ilkayaktas.healthnetwork.controller;
+package edu.ilkayaktas.healthnetwork.rest;
 
-import edu.ilkayaktas.healthnetwork.model.EchoModel;
-import edu.ilkayaktas.healthnetwork.model.FooService;
+import edu.ilkayaktas.healthnetwork.model.others.EchoModel;
+import edu.ilkayaktas.healthnetwork.model.others.FooService;
 import edu.ilkayaktas.healthnetwork.service.SocketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;

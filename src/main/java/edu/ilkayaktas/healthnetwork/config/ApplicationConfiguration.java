@@ -1,7 +1,7 @@
 package edu.ilkayaktas.healthnetwork.config;
 
-import edu.ilkayaktas.healthnetwork.model.BarService;
-import edu.ilkayaktas.healthnetwork.model.FooService;
+import edu.ilkayaktas.healthnetwork.model.others.BarService;
+import edu.ilkayaktas.healthnetwork.model.others.FooService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

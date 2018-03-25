@@ -5,4 +5,11 @@ package edu.ilkayaktas.healthnetwork.controller.db;
  */
 
 public interface IDbHelper {
+    // user
+    boolean saveUser();
+
+    // online status
+    boolean isUserOnline(String userId);
+    void setUserOnline(String userId);
+    void setUserOffline(String userId);
 }
