@@ -6,6 +6,7 @@ import edu.ilkayaktas.healthnetwork.controller.api.ApiHelper;
 import edu.ilkayaktas.healthnetwork.controller.api.IApiHelper;
 import edu.ilkayaktas.healthnetwork.controller.db.DbHelper;
 import edu.ilkayaktas.healthnetwork.controller.db.IDbHelper;
+import edu.ilkayaktas.healthnetwork.rest.AuthorizationController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,5 +29,10 @@ public class DataManagerInjector {
     @Bean
     public IApiHelper provideApiHelper(){
         return new ApiHelper();
+    }
+
+    @Bean
+    public AuthorizationController provideAuthorizationController(){
+        return new AuthorizationController();
     }
 }

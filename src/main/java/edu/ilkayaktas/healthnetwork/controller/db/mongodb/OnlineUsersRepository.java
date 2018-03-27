@@ -1,6 +1,6 @@
 package edu.ilkayaktas.healthnetwork.controller.db.mongodb;
 
-import edu.ilkayaktas.healthnetwork.model.OnlineUsers;
+import edu.ilkayaktas.healthnetwork.model.db.OnlineUsers;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**

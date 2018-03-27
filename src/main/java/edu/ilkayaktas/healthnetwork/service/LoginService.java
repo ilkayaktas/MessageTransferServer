@@ -1,6 +1,8 @@
 package edu.ilkayaktas.healthnetwork.service;
 
 import edu.ilkayaktas.healthnetwork.controller.IDataManager;
+import edu.ilkayaktas.healthnetwork.model.db.OnlineUsers;
+import edu.ilkayaktas.healthnetwork.model.db.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +24,13 @@ public class LoginService {
     }
 
     public void login(String userId, String token, String expireDateInMilis){
-        boolean isSavedSuccesfully = dataManager.saveUser();
-        if(isSavedSuccesfully){
-            dataManager.setUserOffline(userId);
+        User user = dataManager.saveUser(new User());
+        if(user != null){
+            OnlineUsers onlineUser = dataManager.setUserOnline(userId);
         }
+    }
+
+    public void logout(String userId){
+        dataManager.setUserOffline(userId);
     }
 }

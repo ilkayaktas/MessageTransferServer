@@ -1,4 +1,4 @@
-package edu.ilkayaktas.healthnetwork.model;
+package edu.ilkayaktas.healthnetwork.model.db;
 
 import org.springframework.data.annotation.Id;
 
