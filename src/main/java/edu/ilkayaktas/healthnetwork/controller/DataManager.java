@@ -4,7 +4,7 @@ import edu.ilkayaktas.healthnetwork.controller.api.IApiHelper;
 import edu.ilkayaktas.healthnetwork.controller.db.IDbHelper;
 import edu.ilkayaktas.healthnetwork.model.AppConstants;
 import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
-import edu.ilkayaktas.healthnetwork.model.db.OnlineUsers;
+import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import edu.ilkayaktas.healthnetwork.model.rest.AuthorizationData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +78,7 @@ public class DataManager implements IDataManager{
     }
 
     @Override
-    public OnlineUsers setUserOnline(String userId) {
+    public OnlineUser setUserOnline(String userId) {
         dbHelper.setUserOnline(userId);
         return null;
     }

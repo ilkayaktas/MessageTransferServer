@@ -1,7 +1,7 @@
 package edu.ilkayaktas.healthnetwork.controller.db;
 
 import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
-import edu.ilkayaktas.healthnetwork.model.db.OnlineUsers;
+import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import org.springframework.lang.NonNull;
 
@@ -24,6 +24,6 @@ public interface IDbHelper {
 
     // online status
     boolean isUserOnline(@NonNull String userId);
-    OnlineUsers setUserOnline(@NonNull String userId);
+    OnlineUser setUserOnline(@NonNull String userId);
     void setUserOffline(@NonNull String userId);
 }

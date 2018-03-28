@@ -8,8 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * Created by ilkayaktas on 26.03.2018 at 00:10.
  */
 
-@Document(collection = "onlineusers")
-public class OnlineUsers {
+@Document(collection = "onlineuser")
+public class OnlineUser {
     @Id
     public String id;
 
@@ -18,10 +18,7 @@ public class OnlineUsers {
 
     public String timeInMilis;
 
-    public OnlineUsers() {
-    }
-
-    public OnlineUsers(String userId) {
+    public OnlineUser(String userId) {
         this.userId = userId;
         this.timeInMilis = String.valueOf(System.currentTimeMillis());
     }

@@ -10,4 +10,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface IUserController extends IController {
     ResponseEntity<?> upsertUser(User user, String userId, String token);
+
 }

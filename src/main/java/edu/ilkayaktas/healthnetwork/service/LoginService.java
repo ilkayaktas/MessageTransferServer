@@ -2,7 +2,7 @@ package edu.ilkayaktas.healthnetwork.service;
 
 import edu.ilkayaktas.healthnetwork.controller.IDataManager;
 import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
-import edu.ilkayaktas.healthnetwork.model.db.OnlineUsers;
+import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ public class LoginService {
         User user = dataManager.updateUser(new User());
         if(user != null){
             dataManager.updateAuthenticationData(new AuthenticationData());
-            OnlineUsers onlineUser = dataManager.setUserOnline(userId);
+            OnlineUser onlineUser = dataManager.setUserOnline(userId);
         }
     }
 

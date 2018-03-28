@@ -4,7 +4,7 @@ import edu.ilkayaktas.healthnetwork.controller.db.mongodb.AuthenticationReposito
 import edu.ilkayaktas.healthnetwork.controller.db.mongodb.OnlineUsersRepository;
 import edu.ilkayaktas.healthnetwork.controller.db.mongodb.UserRepository;
 import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
-import edu.ilkayaktas.healthnetwork.model.db.OnlineUsers;
+import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -81,18 +81,20 @@ public class DbHelper implements IDbHelper {
 
     @Override
     public boolean isUserOnline(@NonNull String userId) {
-        OnlineUsers onlineUsers = onlineUsersRepository.findByUserId(userId);
-        return onlineUsers != null;
+        OnlineUser onlineUser = onlineUsersRepository.findByUserId(userId);
+        return onlineUser != null;
     }
 
     @Override
-    public OnlineUsers setUserOnline(@NonNull String userId) {
-        onlineUsersRepository.save(new OnlineUsers(userId));
+    public OnlineUser setUserOnline(@NonNull String userId) {
+        onlineUsersRepository.deleteByUserId(userId);
+        onlineUsersRepository.save(new OnlineUser(userId));
         return null;
     }
 
     @Override
     public void setUserOffline(@NonNull String userId) {
+        onlineUsersRepository.deleteByUserId(userId);
         onlineUsersRepository.deleteByUserId(userId);
     }
 
