@@ -7,6 +7,7 @@ import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
 import edu.ilkayaktas.healthnetwork.model.db.OnlineUsers;
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 
 import javax.annotation.PostConstruct;
 
@@ -31,50 +32,67 @@ public class DbHelper implements IDbHelper {
     }
 
     @Override
-    public AuthenticationData saveAuthenticationData(AuthenticationData authenticationData) {
+    public AuthenticationData saveAuthenticationData(@NonNull AuthenticationData authenticationData) {
         return authenticationRepository.save(authenticationData);
     }
 
     @Override
-    public AuthenticationData getAuthenticationData(String userId) {
+    public AuthenticationData updateAuthenticationData(@NonNull AuthenticationData authenticationData) {
+        if(authenticationRepository.existsByUserId(authenticationData.userId)){
+            authenticationRepository.deleteByUserId(authenticationData.userId);
+        }
+        return authenticationRepository.save(authenticationData);
+    }
+
+    @Override
+    public AuthenticationData getAuthenticationData(@NonNull String userId) {
         return authenticationRepository.findByUserId(userId);
     }
 
     @Override
-    public void deleteAuthenticationData(String userId) {
+    public void deleteAuthenticationData(@NonNull String userId) {
         authenticationRepository.deleteByUserId(userId);
     }
 
     @Override
-    public User saveUser(User user) {
+    public User saveUser(@NonNull User user) {
         userRepository.save(user);
         return user;
     }
 
     @Override
-    public User getUser(String userId) {
+    public User updateUser(@NonNull User user) {
+        if(userRepository.existsByUserId(user.userId)){
+            userRepository.deleteByUserId(user.userId);
+        }
+        userRepository.save(user);
+        return user;
+    }
+
+    @Override
+    public User getUser(@NonNull String userId) {
         return userRepository.findByUserId(userId);
     }
 
     @Override
-    public boolean isUserExist(String userId) {
+    public boolean isUserExist(@NonNull String userId) {
         return userRepository.existsByUserId(userId);
     }
 
     @Override
-    public boolean isUserOnline(String userId) {
+    public boolean isUserOnline(@NonNull String userId) {
         OnlineUsers onlineUsers = onlineUsersRepository.findByUserId(userId);
         return onlineUsers != null;
     }
 
     @Override
-    public OnlineUsers setUserOnline(String userId) {
+    public OnlineUsers setUserOnline(@NonNull String userId) {
         onlineUsersRepository.save(new OnlineUsers(userId));
         return null;
     }
 
     @Override
-    public void setUserOffline(String userId) {
+    public void setUserOffline(@NonNull String userId) {
         onlineUsersRepository.deleteByUserId(userId);
     }
 

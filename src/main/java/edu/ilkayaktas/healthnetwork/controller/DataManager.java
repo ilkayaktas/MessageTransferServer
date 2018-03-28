@@ -36,6 +36,11 @@ public class DataManager implements IDataManager{
     }
 
     @Override
+    public AuthenticationData updateAuthenticationData(AuthenticationData authenticationData) {
+        return dbHelper.updateAuthenticationData(authenticationData);
+    }
+
+    @Override
     public AuthenticationData getAuthenticationData(String userId) {
         return dbHelper.getAuthenticationData(userId);
     }
@@ -48,6 +53,12 @@ public class DataManager implements IDataManager{
     @Override
     public User saveUser(User user) {
         dbHelper.saveUser(user);
+        return user;
+    }
+
+    @Override
+    public User updateUser(User user) {
+        dbHelper.updateUser(user);
         return user;
     }
 
@@ -100,7 +111,7 @@ public class DataManager implements IDataManager{
                     }
 
                     // token is equal
-                    if(user.token.equals(token)){
+                    if(authenticationData.token.equals(token)){
                         return new ResponseEntity<>(new AuthorizationData(AppConstants.HTTP_STATUS_OK,
                                 1,
                                 "\"Well done, Authorized!\""),

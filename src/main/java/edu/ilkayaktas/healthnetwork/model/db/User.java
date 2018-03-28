@@ -10,9 +10,12 @@ public class User {
     @Id
     public String id;
 
+    public String userId;
+
+    public String picture;
+
     public String name;
 
-    public String token;
-
     public String email;
+
 }
