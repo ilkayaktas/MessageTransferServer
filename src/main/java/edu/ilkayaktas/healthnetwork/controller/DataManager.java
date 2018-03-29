@@ -9,6 +9,7 @@ import edu.ilkayaktas.healthnetwork.model.db.User;
 import edu.ilkayaktas.healthnetwork.model.rest.AuthorizationData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 
 import javax.annotation.PostConstruct;
 
@@ -17,6 +18,8 @@ import javax.annotation.PostConstruct;
  */
 
 public class DataManager implements IDataManager{
+
+    // TODO upsertUserField performans olarak değerlendirilecek
 
     @Autowired
     private IDbHelper dbHelper;
@@ -52,14 +55,12 @@ public class DataManager implements IDataManager{
 
     @Override
     public User saveUser(User user) {
-        dbHelper.saveUser(user);
-        return user;
+        return dbHelper.saveUser(user);
     }
 
     @Override
-    public User updateUser(User user) {
-        dbHelper.updateUser(user);
-        return user;
+    public boolean updateUserField(@NonNull String userId, @NonNull String field, @NonNull String value){
+        return dbHelper.updateUserField(userId, field, value);
     }
 
     @Override
@@ -79,8 +80,7 @@ public class DataManager implements IDataManager{
 
     @Override
     public OnlineUser setUserOnline(String userId) {
-        dbHelper.setUserOnline(userId);
-        return null;
+        return dbHelper.setUserOnline(userId);
     }
 
     @Override
@@ -135,7 +135,19 @@ public class DataManager implements IDataManager{
         
     }
 
-    public boolean isExpired(Long expireDate){
+    @Override
+    public User upsertUser(User user) {
+        if( dbHelper.isUserExist(user.userId) ){
+            updateUserField(user.userId, "email", user.email);
+            updateUserField(user.userId, "name", user.name);
+            updateUserField(user.userId, "picture", user.picture);
+            return getUser(user.userId);
+        }else{
+            return saveUser(user);
+        }
+    }
+
+    private boolean isExpired(Long expireDate){
         Long now = System.currentTimeMillis();
 
         return now.compareTo(expireDate) > 0;

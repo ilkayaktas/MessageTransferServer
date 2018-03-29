@@ -1,9 +1,10 @@
 package edu.ilkayaktas.healthnetwork.rest.authentication;
 
 import edu.ilkayaktas.healthnetwork.model.AppConstants;
+import edu.ilkayaktas.healthnetwork.model.db.User;
 import edu.ilkayaktas.healthnetwork.model.rest.AuthorizationData;
 import edu.ilkayaktas.healthnetwork.rest.AuthorizationController;
-import edu.ilkayaktas.healthnetwork.service.LoginService;
+import edu.ilkayaktas.healthnetwork.service.LoginServicePresenter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +22,15 @@ public class AuthenticationController implements IAuthenticationController{
     AuthorizationController authorizationController;
 
     @Autowired
-    LoginService loginService;
+    LoginServicePresenter loginServicePresenter;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<String> login(@RequestParam(value = "userId") String userId,
+    public ResponseEntity<String> login(@RequestBody User user,
+                                        @RequestParam(value = "userId") String userId,
                                         @RequestParam(value="token") String token,
                                         @RequestParam(value="expiredate") String expireDateInMilis){
 
-        loginService.login(userId, token, expireDateInMilis);
+        loginServicePresenter.login(user, userId, token, expireDateInMilis);
         return new ResponseEntity<>("Login succesful!",AppConstants.HTTP_STATUS_OK);
     }
 
@@ -41,7 +43,7 @@ public class AuthenticationController implements IAuthenticationController{
             return isAuthorized(userId, token);
         }
 
-        loginService.logout(userId);
+        loginServicePresenter.logout(userId);
         return new ResponseEntity<>("logout succesful!",HttpStatus.OK);
     }
 

@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
  */
 
 @Service
-public class LoginService {
+public class LoginServicePresenter {
 
     @Autowired
     IDataManager dataManager;
@@ -24,10 +24,10 @@ public class LoginService {
         System.out.println("LoginService is constructed!");
     }
 
-    public void login(String userId, String token, String expireDateInMilis){
-        User user = dataManager.updateUser(new User());
-        if(user != null){
-            dataManager.updateAuthenticationData(new AuthenticationData());
+    public void login(User user, String userId, String token, String expireDateInMilis){
+        User usr = dataManager.upsertUser(user);
+        if(usr != null){
+            dataManager.updateAuthenticationData(new AuthenticationData(userId, token, expireDateInMilis));
             OnlineUser onlineUser = dataManager.setUserOnline(userId);
         }
     }

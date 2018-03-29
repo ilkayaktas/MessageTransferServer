@@ -2,6 +2,7 @@ package edu.ilkayaktas.healthnetwork.controller;
 
 import edu.ilkayaktas.healthnetwork.controller.api.IApiHelper;
 import edu.ilkayaktas.healthnetwork.controller.db.IDbHelper;
+import edu.ilkayaktas.healthnetwork.model.db.User;
 import edu.ilkayaktas.healthnetwork.model.rest.AuthorizationData;
 import org.springframework.http.ResponseEntity;
 
@@ -11,4 +12,5 @@ import org.springframework.http.ResponseEntity;
 
 public interface IDataManager extends IDbHelper, IApiHelper {
     ResponseEntity<AuthorizationData> isRequestAuthorized(String userId, String token);
+    User upsertUser(User user);
 }

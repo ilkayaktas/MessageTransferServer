@@ -20,4 +20,11 @@ public class AuthenticationData {
     public String expireDate;
 
     public String date;
+
+    public AuthenticationData(String userId, String token, String expireDateInMilis) {
+        this.userId = userId;
+        this.token = token;
+        this.expireDate = expireDateInMilis;
+        this.date = String.valueOf(System.currentTimeMillis());
+    }
 }

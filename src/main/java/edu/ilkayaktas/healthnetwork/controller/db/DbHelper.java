@@ -1,5 +1,6 @@
 package edu.ilkayaktas.healthnetwork.controller.db;
 
+import com.mongodb.client.result.UpdateResult;
 import edu.ilkayaktas.healthnetwork.controller.db.mongodb.AuthenticationRepository;
 import edu.ilkayaktas.healthnetwork.controller.db.mongodb.OnlineUsersRepository;
 import edu.ilkayaktas.healthnetwork.controller.db.mongodb.UserRepository;
@@ -7,15 +8,22 @@ import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
 import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.lang.NonNull;
 
 import javax.annotation.PostConstruct;
+
+import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 /**
  * Created by ilkayaktas on 25.03.2018 at 16:00.
  */
 
 public class DbHelper implements IDbHelper {
+    // TODO Update metotları için performans incelenecek.
+
 
     @Autowired
     OnlineUsersRepository onlineUsersRepository;
@@ -25,6 +33,9 @@ public class DbHelper implements IDbHelper {
 
     @Autowired
     AuthenticationRepository authenticationRepository;
+
+    @Autowired
+    MongoTemplate mongoTemplate; // for updating data
 
     @PostConstruct
     public void init() {
@@ -38,10 +49,14 @@ public class DbHelper implements IDbHelper {
 
     @Override
     public AuthenticationData updateAuthenticationData(@NonNull AuthenticationData authenticationData) {
-        if(authenticationRepository.existsByUserId(authenticationData.userId)){
-            authenticationRepository.deleteByUserId(authenticationData.userId);
-        }
-        return authenticationRepository.save(authenticationData);
+
+        Query query = new Query(where("userId").is(authenticationData.userId));
+
+        mongoTemplate.updateFirst(query, Update.update("token", authenticationData.token), AuthenticationData.class);
+        mongoTemplate.updateFirst(query, Update.update("expireDate", authenticationData.expireDate), AuthenticationData.class);
+        mongoTemplate.updateFirst(query, Update.update("date", authenticationData.date), AuthenticationData.class);
+
+        return authenticationRepository.findByUserId(authenticationData.userId);
     }
 
     @Override
@@ -61,12 +76,12 @@ public class DbHelper implements IDbHelper {
     }
 
     @Override
-    public User updateUser(@NonNull User user) {
-        if(userRepository.existsByUserId(user.userId)){
-            userRepository.deleteByUserId(user.userId);
-        }
-        userRepository.save(user);
-        return user;
+    public boolean updateUserField(@NonNull String userId, @NonNull String field, @NonNull String value){
+        Query query = new Query(where("userId").is(userId));
+
+        UpdateResult result = mongoTemplate.updateFirst(query, Update.update(field, value), AuthenticationData.class);
+
+        return result.wasAcknowledged();
     }
 
     @Override
@@ -88,13 +103,11 @@ public class DbHelper implements IDbHelper {
     @Override
     public OnlineUser setUserOnline(@NonNull String userId) {
         onlineUsersRepository.deleteByUserId(userId);
-        onlineUsersRepository.save(new OnlineUser(userId));
-        return null;
+        return onlineUsersRepository.save(new OnlineUser(userId));
     }
 
     @Override
     public void setUserOffline(@NonNull String userId) {
-        onlineUsersRepository.deleteByUserId(userId);
         onlineUsersRepository.deleteByUserId(userId);
     }
 

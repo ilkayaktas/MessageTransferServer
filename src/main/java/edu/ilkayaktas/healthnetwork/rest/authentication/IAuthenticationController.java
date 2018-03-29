@@ -1,5 +1,6 @@
 package edu.ilkayaktas.healthnetwork.rest.authentication;
 
+import edu.ilkayaktas.healthnetwork.model.db.User;
 import edu.ilkayaktas.healthnetwork.rest.IController;
 import org.springframework.http.ResponseEntity;
 
@@ -8,6 +9,6 @@ import org.springframework.http.ResponseEntity;
  */
 
 public interface IAuthenticationController extends IController {
-    ResponseEntity<String> login(String userId, String token, String expireDateInMilis);
+    ResponseEntity<String> login(User user, String userId, String token, String expireDateInMilis);
     ResponseEntity<?> logout(String userId, String token);
 }

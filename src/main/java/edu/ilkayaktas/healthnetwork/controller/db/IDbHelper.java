@@ -18,7 +18,7 @@ public interface IDbHelper {
 
     // user
     User saveUser(@NonNull User user);
-    User updateUser(@NonNull User user);
+    boolean updateUserField(@NonNull String userId, @NonNull String field, @NonNull String value);
     User getUser(@NonNull String userId);
     boolean isUserExist(@NonNull String userId);
 
