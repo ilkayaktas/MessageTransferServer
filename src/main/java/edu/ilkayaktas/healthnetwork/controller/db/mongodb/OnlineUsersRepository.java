@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 
 public interface OnlineUsersRepository extends MongoRepository<OnlineUser, String> {
-    OnlineUser findByUserId(String userId);
+    OnlineUser findByuserId(String userId);
 
-    void deleteByUserId(String userId);
+    void deleteByuserId(String userId);
 }

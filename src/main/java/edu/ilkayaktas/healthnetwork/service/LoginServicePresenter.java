@@ -2,7 +2,6 @@ package edu.ilkayaktas.healthnetwork.service;
 
 import edu.ilkayaktas.healthnetwork.controller.IDataManager;
 import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
-import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +23,11 @@ public class LoginServicePresenter {
         System.out.println("LoginService is constructed!");
     }
 
-    public void login(User user, String userId, String token, String expireDateInMilis){
+    public void login(User user, String userId, String token, String expireDate){
         User usr = dataManager.upsertUser(user);
         if(usr != null){
-            dataManager.updateAuthenticationData(new AuthenticationData(userId, token, expireDateInMilis));
-            OnlineUser onlineUser = dataManager.setUserOnline(userId);
+            dataManager.upsertAuthenticationData(new AuthenticationData(userId, token, expireDate));
+            dataManager.setUserOnline(userId);
         }
     }
 

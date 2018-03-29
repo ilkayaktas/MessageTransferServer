@@ -1,6 +1,7 @@
 package edu.ilkayaktas.healthnetwork.model.db;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -13,6 +14,7 @@ public class AuthenticationData {
     @Id
     public String id;
 
+    @Indexed(unique = true)
     public String userId;
 
     public String token;
@@ -21,10 +23,10 @@ public class AuthenticationData {
 
     public String date;
 
-    public AuthenticationData(String userId, String token, String expireDateInMilis) {
+    public AuthenticationData(String userId, String token, String expireDate) {
         this.userId = userId;
         this.token = token;
-        this.expireDate = expireDateInMilis;
+        this.expireDate = expireDate;
         this.date = String.valueOf(System.currentTimeMillis());
     }
 }

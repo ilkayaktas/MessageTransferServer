@@ -28,9 +28,9 @@ public class AuthenticationController implements IAuthenticationController{
     public ResponseEntity<String> login(@RequestBody User user,
                                         @RequestParam(value = "userId") String userId,
                                         @RequestParam(value="token") String token,
-                                        @RequestParam(value="expiredate") String expireDateInMilis){
+                                        @RequestParam(value="expiredate") String expireDate){
 
-        loginServicePresenter.login(user, userId, token, expireDateInMilis);
+        loginServicePresenter.login(user, userId, token, expireDate);
         return new ResponseEntity<>("Login succesful!",AppConstants.HTTP_STATUS_OK);
     }
 

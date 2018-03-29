@@ -15,6 +15,7 @@ public interface IDbHelper {
     AuthenticationData updateAuthenticationData(@NonNull AuthenticationData authenticationData);
     AuthenticationData getAuthenticationData(@NonNull String userId);
     void deleteAuthenticationData(@NonNull String userId);
+    boolean isAuthenticationDataExists(@NonNull String userId);
 
     // user
     User saveUser(@NonNull User user);

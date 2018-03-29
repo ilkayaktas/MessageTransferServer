@@ -54,6 +54,21 @@ public class DataManager implements IDataManager{
     }
 
     @Override
+    public boolean isAuthenticationDataExists(@NonNull String userId){
+        return dbHelper.isAuthenticationDataExists(userId);
+    }
+
+    @Override
+    public AuthenticationData upsertAuthenticationData(AuthenticationData authenticationData){
+        if(isAuthenticationDataExists(authenticationData.userId)){
+            updateAuthenticationData(authenticationData);
+            return getAuthenticationData(authenticationData.userId);
+        } else{
+            return saveAuthenticationData(authenticationData);
+        }
+    }
+
+    @Override
     public User saveUser(User user) {
         return dbHelper.saveUser(user);
     }

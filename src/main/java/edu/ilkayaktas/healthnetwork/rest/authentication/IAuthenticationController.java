@@ -9,6 +9,6 @@ import org.springframework.http.ResponseEntity;
  */
 
 public interface IAuthenticationController extends IController {
-    ResponseEntity<String> login(User user, String userId, String token, String expireDateInMilis);
+    ResponseEntity<String> login(User user, String userId, String token, String expireDate);
     ResponseEntity<?> logout(String userId, String token);
 }
