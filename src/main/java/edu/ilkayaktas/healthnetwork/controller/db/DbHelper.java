@@ -56,22 +56,22 @@ public class DbHelper implements IDbHelper {
         mongoTemplate.updateFirst(query, Update.update("expireDate", authenticationData.expireDate), AuthenticationData.class);
         mongoTemplate.updateFirst(query, Update.update("date", authenticationData.date), AuthenticationData.class);
 
-        return authenticationRepository.findByuserId(authenticationData.userId);
+        return authenticationRepository.findByUserId(authenticationData.userId);
     }
 
     @Override
     public AuthenticationData getAuthenticationData(@NonNull String userId) {
-        return authenticationRepository.findByuserId(userId);
+        return authenticationRepository.findByUserId(userId);
     }
 
     @Override
     public void deleteAuthenticationData(@NonNull String userId) {
-        authenticationRepository.deleteByuserId(userId);
+        authenticationRepository.deleteByUserId(userId);
     }
 
     @Override
     public boolean isAuthenticationDataExists(@NonNull String userId){
-        return authenticationRepository.existsByuserId(userId);
+        return authenticationRepository.existsByUserId(userId);
     }
 
     @Override
@@ -91,29 +91,29 @@ public class DbHelper implements IDbHelper {
 
     @Override
     public User getUser(@NonNull String userId) {
-        return userRepository.findByuserId(userId);
+        return userRepository.findByUserId(userId);
     }
 
     @Override
     public boolean isUserExist(@NonNull String userId) {
-        return userRepository.existsByuserId(userId);
+        return userRepository.existsByUserId(userId);
     }
 
     @Override
     public boolean isUserOnline(@NonNull String userId) {
-        OnlineUser onlineUser = onlineUsersRepository.findByuserId(userId);
+        OnlineUser onlineUser = onlineUsersRepository.findByUserId(userId);
         return onlineUser != null;
     }
 
     @Override
     public OnlineUser setUserOnline(@NonNull String userId) {
-        onlineUsersRepository.deleteByuserId(userId);
+        onlineUsersRepository.deleteByUserId(userId);
         return onlineUsersRepository.save(new OnlineUser(userId));
     }
 
     @Override
     public void setUserOffline(@NonNull String userId) {
-        onlineUsersRepository.deleteByuserId(userId);
+        onlineUsersRepository.deleteByUserId(userId);
     }
 
 }

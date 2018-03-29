@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 
 public interface AuthenticationRepository extends MongoRepository<AuthenticationData, String> {
-    AuthenticationData findByuserId(String userId);
-    boolean existsByuserId(String userId);
-    void deleteByuserId(String userId);
+    AuthenticationData findByUserId(String userId);
+    boolean existsByUserId(String userId);
+    void deleteByUserId(String userId);
 }

@@ -10,5 +10,6 @@ import org.springframework.http.ResponseEntity;
 
 public interface IUserController extends IController {
     ResponseEntity<?> upsertUser(User user, String userId, String token);
-
+    ResponseEntity<?> addFriend(String userId, String token, String friendUserId);
+    ResponseEntity<?> removeFriend(String userId, String token, String friendUserId);
 }

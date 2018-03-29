@@ -20,6 +20,6 @@ public class Channel {
 
     public String connectionEndpoint;
 
-    public List<String> members;
+    public List<String> members; // list of user ids
 
 }
