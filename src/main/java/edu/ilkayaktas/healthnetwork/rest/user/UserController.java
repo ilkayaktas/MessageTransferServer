@@ -2,7 +2,7 @@ package edu.ilkayaktas.healthnetwork.rest.user;
 
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import edu.ilkayaktas.healthnetwork.model.rest.AuthorizationData;
-import edu.ilkayaktas.healthnetwork.rest.AuthorizationController;
+import edu.ilkayaktas.healthnetwork.rest.authorization.AuthorizationController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

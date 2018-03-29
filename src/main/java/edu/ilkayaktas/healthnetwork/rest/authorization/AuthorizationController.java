@@ -1,4 +1,4 @@
-package edu.ilkayaktas.healthnetwork.rest;
+package edu.ilkayaktas.healthnetwork.rest.authorization;
 
 import edu.ilkayaktas.healthnetwork.controller.IDataManager;
 import edu.ilkayaktas.healthnetwork.model.rest.AuthorizationData;

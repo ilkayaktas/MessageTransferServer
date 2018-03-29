@@ -1,9 +1,9 @@
 package edu.ilkayaktas.healthnetwork.rest.authentication;
 
-import edu.ilkayaktas.healthnetwork.model.AppConstants;
+import edu.ilkayaktas.healthnetwork.utils.AppConstants;
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import edu.ilkayaktas.healthnetwork.model.rest.AuthorizationData;
-import edu.ilkayaktas.healthnetwork.rest.AuthorizationController;
+import edu.ilkayaktas.healthnetwork.rest.authorization.AuthorizationController;
 import edu.ilkayaktas.healthnetwork.service.LoginServicePresenter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

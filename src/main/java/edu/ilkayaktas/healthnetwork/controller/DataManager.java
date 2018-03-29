@@ -2,7 +2,7 @@ package edu.ilkayaktas.healthnetwork.controller;
 
 import edu.ilkayaktas.healthnetwork.controller.api.IApiHelper;
 import edu.ilkayaktas.healthnetwork.controller.db.IDbHelper;
-import edu.ilkayaktas.healthnetwork.model.AppConstants;
+import edu.ilkayaktas.healthnetwork.utils.AppConstants;
 import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
 import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
 import edu.ilkayaktas.healthnetwork.model.db.User;

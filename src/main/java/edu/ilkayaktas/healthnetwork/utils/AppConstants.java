@@ -1,4 +1,4 @@
-package edu.ilkayaktas.healthnetwork.model;
+package edu.ilkayaktas.healthnetwork.utils;
 
 import org.springframework.http.HttpStatus;
 
