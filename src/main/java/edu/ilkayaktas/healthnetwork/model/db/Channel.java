@@ -16,9 +16,9 @@ public class Channel {
 
     public String channelName;
 
-    public String createdBy; // userId
+    public String owner; // userId
 
-    public String connectionEndpoint;
+    public String notificationKey; // notification key for FCM messages
 
     public List<String> members; // list of user ids
 
