@@ -6,7 +6,6 @@ import edu.ilkayaktas.healthnetwork.controller.api.ApiHelper;
 import edu.ilkayaktas.healthnetwork.controller.api.IApiHelper;
 import edu.ilkayaktas.healthnetwork.controller.db.DbHelper;
 import edu.ilkayaktas.healthnetwork.controller.db.IDbHelper;
-import edu.ilkayaktas.healthnetwork.rest.authorization.AuthorizationController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

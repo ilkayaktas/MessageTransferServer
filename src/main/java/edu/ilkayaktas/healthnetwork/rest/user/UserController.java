@@ -1,9 +1,7 @@
 package edu.ilkayaktas.healthnetwork.rest.user;
 
+import edu.ilkayaktas.healthnetwork.model.db.Channel;
 import edu.ilkayaktas.healthnetwork.model.db.User;
-import edu.ilkayaktas.healthnetwork.model.rest.AuthorizationData;
-import edu.ilkayaktas.healthnetwork.rest.authorization.AuthorizationController;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,52 +10,36 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-public class UserController implements IUserController {
+public class UserController {
 
-    @Autowired
-    AuthorizationController authorizationController;
-
-
-    @RequestMapping(value = "/user/update", method = RequestMethod.POST)
-    @Override
-    public ResponseEntity<?> upsertUser(@RequestBody User user, @RequestParam("userId") String userId, @RequestParam("token") String token) {
-        // check if the request is authorized
-        if(isAuthorized(userId, token).getStatusCode().isError()){
-            // not authorized or token is expired
-            return isAuthorized(userId, token);
-        }
+    @RequestMapping(value = "user/get")
+    public ResponseEntity<User> getUser(@RequestParam("userId") String userId){
 
         return null;
     }
 
-    @RequestMapping(value = "/user/addfriend", method = RequestMethod.POST)
-    @Override
-    public ResponseEntity<?> addFriend(String userId, String token, String friendUserId) {
-
-        // check if the request is authorized
-        if(isAuthorized(userId, token).getStatusCode().isError()){
-            // not authorized or token is expired
-            return isAuthorized(userId, token);
-        }
+    @RequestMapping(value = "user/channel")
+    public ResponseEntity<Channel> getUserChannels(@RequestParam("userId") String userId){
 
         return null;
     }
 
-    @RequestMapping(value = "/user/removefriend", method = RequestMethod.POST)
-    @Override
-    public ResponseEntity<?> removeFriend(String userId, String token, String friendUserId) {
-
-        // check if the request is authorized
-        if(isAuthorized(userId, token).getStatusCode().isError()){
-            // not authorized or token is expired
-            return isAuthorized(userId, token);
-        }
+    @RequestMapping(value = "/user/add", method = RequestMethod.POST)
+    public ResponseEntity<?> addUser(@RequestBody User user) {
 
         return null;
     }
 
-    @Override
-    public ResponseEntity<AuthorizationData> isAuthorized(String userId, String token) {
-        return authorizationController.isRequestAuthorized(userId, token);
+    @RequestMapping(value = "channel/add", method = RequestMethod.POST)
+    public ResponseEntity<?> addChannel(@RequestBody Channel channel) {
+
+        return null;
     }
+
+    @RequestMapping(value = "channel/update", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateChannel(@RequestParam("id") String channelId, @RequestParam("memberId") String memberId) {
+
+        return null;
+    }
+
 }
