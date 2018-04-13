@@ -30,9 +30,10 @@ public class UserController {
         return null;
     }
 
-    @RequestMapping(value = "channel/add", method = RequestMethod.POST)
+    @RequestMapping(value = "channel/create", method = RequestMethod.POST)
     public ResponseEntity<?> addChannel(@RequestBody Channel channel) {
 
+        System.out.println(channel);
         return null;
     }
 

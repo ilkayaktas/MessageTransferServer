@@ -16,6 +16,5 @@ public class InitializeController {
     @Autowired
     private void initChannels(){
         System.out.println("Public channels are added!");
-        dataManager.upsertAuthenticationData(null);
     }
 }

@@ -3,6 +3,7 @@ package edu.ilkayaktas.healthnetwork.model.db;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,9 @@ public class Channel {
 
     public String notificationKey; // notification key for FCM messages
 
-    public List<String> members; // list of user ids
+    public List<String> membersFCMTokens; // list of user ids
 
+    public Channel() {
+        membersFCMTokens = new ArrayList<>();
+    }
 }

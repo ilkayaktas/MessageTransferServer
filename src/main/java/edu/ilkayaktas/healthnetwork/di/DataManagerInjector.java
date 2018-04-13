@@ -30,8 +30,4 @@ public class DataManagerInjector {
         return new ApiHelper();
     }
 
-    @Bean
-    public AuthorizationController provideAuthorizationController(){
-        return new AuthorizationController();
-    }
 }
