@@ -2,16 +2,18 @@ package edu.ilkayaktas.healthnetwork.controller;
 
 import edu.ilkayaktas.healthnetwork.controller.api.IApiHelper;
 import edu.ilkayaktas.healthnetwork.controller.db.IDbHelper;
-import edu.ilkayaktas.healthnetwork.utils.AppConstants;
 import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
+import edu.ilkayaktas.healthnetwork.model.db.Channel;
 import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import edu.ilkayaktas.healthnetwork.model.rest.AuthorizationData;
+import edu.ilkayaktas.healthnetwork.model.utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
 
 /**
  * Created by ilkayaktas on 25.03.2018 at 16:02.
@@ -104,6 +106,11 @@ public class DataManager implements IDataManager{
     }
 
     @Override
+    public Channel saveChannel(Channel channel) {
+        return dbHelper.saveChannel(channel);
+    }
+
+    @Override
     public ResponseEntity<AuthorizationData> isRequestAuthorized(String userId, String token) {
         User user = getUser(userId);
 
@@ -166,5 +173,15 @@ public class DataManager implements IDataManager{
         Long now = System.currentTimeMillis();
 
         return now.compareTo(expireDate) > 0;
+    }
+
+    @Override
+    public String createFCMGroup(String groupName, String fcmToken) throws IOException {
+        return apiHelper.createFCMGroup(groupName,fcmToken);
+    }
+
+    @Override
+    public String addUserToFCMGroup(String groupName, String notificationKey, String fcmToken) throws IOException {
+        return apiHelper.addUserToFCMGroup(groupName,notificationKey,fcmToken);
     }
 }

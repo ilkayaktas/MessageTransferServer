@@ -1,4 +1,4 @@
-package edu.ilkayaktas.healthnetwork.service;
+package edu.ilkayaktas.healthnetwork.rest.authentication.service;
 
 import edu.ilkayaktas.healthnetwork.controller.IDataManager;
 import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
@@ -15,8 +15,12 @@ import javax.annotation.PostConstruct;
 @Service
 public class LoginServicePresenter {
 
+    private final IDataManager dataManager;
+
     @Autowired
-    IDataManager dataManager;
+    public LoginServicePresenter(IDataManager dataManager) {
+        this.dataManager = dataManager;
+    }
 
     @PostConstruct
     public void init(){

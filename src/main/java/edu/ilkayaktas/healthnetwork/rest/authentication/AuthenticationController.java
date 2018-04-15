@@ -1,8 +1,8 @@
 package edu.ilkayaktas.healthnetwork.rest.authentication;
 
 import edu.ilkayaktas.healthnetwork.model.db.User;
-import edu.ilkayaktas.healthnetwork.service.LoginServicePresenter;
-import edu.ilkayaktas.healthnetwork.utils.AppConstants;
+import edu.ilkayaktas.healthnetwork.rest.authentication.service.LoginServicePresenter;
+import edu.ilkayaktas.healthnetwork.model.utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class AuthenticationController {
                                         @RequestParam(value="expiredate") String expireDate){
 
         loginServicePresenter.login(user, userId, token, expireDate);
-        return new ResponseEntity<>("Login succesful!",AppConstants.HTTP_STATUS_OK);
+        return new ResponseEntity<>("Login succesful!", AppConstants.HTTP_STATUS_OK);
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
@@ -34,7 +34,7 @@ public class AuthenticationController {
                                     @RequestParam("token") String token){
         
         loginServicePresenter.logout(userId);
-        return new ResponseEntity<>("logout succesful!",HttpStatus.OK);
+        return new ResponseEntity<>("logout succesful!", AppConstants.HTTP_STATUS_OK);
     }
 
 

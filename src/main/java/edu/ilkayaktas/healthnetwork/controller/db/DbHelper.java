@@ -2,9 +2,11 @@ package edu.ilkayaktas.healthnetwork.controller.db;
 
 import com.mongodb.client.result.UpdateResult;
 import edu.ilkayaktas.healthnetwork.controller.db.mongodb.AuthenticationRepository;
+import edu.ilkayaktas.healthnetwork.controller.db.mongodb.ChannelRepository;
 import edu.ilkayaktas.healthnetwork.controller.db.mongodb.OnlineUsersRepository;
 import edu.ilkayaktas.healthnetwork.controller.db.mongodb.UserRepository;
 import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
+import edu.ilkayaktas.healthnetwork.model.db.Channel;
 import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,9 @@ public class DbHelper implements IDbHelper {
 
     @Autowired
     AuthenticationRepository authenticationRepository;
+
+    @Autowired
+    ChannelRepository channelRepository;
 
     @Autowired
     MongoTemplate mongoTemplate; // for updating data
@@ -114,6 +119,11 @@ public class DbHelper implements IDbHelper {
     @Override
     public void setUserOffline(@NonNull String userId) {
         onlineUsersRepository.deleteByUserId(userId);
+    }
+
+    @Override
+    public Channel saveChannel(Channel channel) {
+        return channelRepository.save(channel);
     }
 
 }
