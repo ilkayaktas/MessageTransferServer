@@ -14,6 +14,7 @@ import org.springframework.lang.NonNull;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by ilkayaktas on 25.03.2018 at 16:02.
@@ -108,6 +109,16 @@ public class DataManager implements IDataManager{
     @Override
     public Channel saveChannel(Channel channel) {
         return dbHelper.saveChannel(channel);
+    }
+
+    @Override
+    public List<Channel> getUserChannels(String userId) {
+        return dbHelper.getUserChannels(userId);
+    }
+
+    @Override
+    public List<Channel> getUserChannelsByToken(String fcmToken) {
+        return dbHelper.getUserChannelsByToken(fcmToken);
     }
 
     @Override

@@ -6,6 +6,8 @@ import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import org.springframework.lang.NonNull;
 
+import java.util.List;
+
 /**
  * Created by ilkayaktas on 25.03.2018 at 15:59.
  */
@@ -31,4 +33,6 @@ public interface IDbHelper {
 
     // channel
     Channel saveChannel(@NonNull Channel channel);
+    List<Channel> getUserChannels(@NonNull String userId);
+    List<Channel> getUserChannelsByToken(@NonNull String fcmToken);
 }

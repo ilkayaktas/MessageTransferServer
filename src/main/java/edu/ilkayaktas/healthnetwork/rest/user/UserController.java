@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by aselsan on 27.03.2018 at 18:02.
@@ -20,6 +22,7 @@ public class UserController {
     @Autowired
     ChannelPresenter channelPresenter;
 
+
     @RequestMapping(value = "user/get")
     public ResponseEntity<User> getUser(@RequestParam("userId") String userId){
 
@@ -27,9 +30,19 @@ public class UserController {
     }
 
     @RequestMapping(value = "user/channel")
-    public ResponseEntity<Channel> getUserChannels(@RequestParam("userId") String userId){
+    public ResponseEntity<?> getUserChannels(@RequestParam("userId") String userId, @RequestParam("fcmToken") String token){
+        List<Channel> userChannels = new ArrayList<>();
 
-        return null;
+        if(userId != null && !userId.isEmpty()){
+            userChannels.addAll(channelPresenter.getUserChannel(userId));
+            System.out.println("found channels by user id");
+        }
+
+        if(token != null && !token.isEmpty()){
+            userChannels.addAll(channelPresenter.getUserChannelByToken(token));
+            System.out.println("found channels by token");
+        }
+        return new ResponseEntity<>(userChannels, AppConstants.HTTP_STATUS_OK);
     }
 
     @RequestMapping(value = "/user/add", method = RequestMethod.POST)

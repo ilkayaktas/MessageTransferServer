@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by ilkayaktas on 16.04.2018 at 00:28.
@@ -23,5 +24,13 @@ public class ChannelPresenter {
     public Channel createChannel(Channel channel) throws IOException {
         channel.notificationKey = dataManager.createFCMGroup(channel.channelName, channel.membersFCMTokens.get(0));
         return dataManager.saveChannel(channel);
+    }
+
+    public List<Channel> getUserChannel(String userId){
+        return dataManager.getUserChannels(userId);
+    }
+
+    public List<Channel> getUserChannelByToken(String token){
+        return dataManager.getUserChannelsByToken(token);
     }
 }

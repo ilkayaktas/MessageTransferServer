@@ -17,6 +17,8 @@ import org.springframework.lang.NonNull;
 
 import javax.annotation.PostConstruct;
 
+import java.util.List;
+
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 /**
@@ -124,6 +126,17 @@ public class DbHelper implements IDbHelper {
     @Override
     public Channel saveChannel(Channel channel) {
         return channelRepository.save(channel);
+    }
+
+    @Override
+    public List<Channel> getUserChannels(String userId) {
+        return channelRepository.findChannelByOwner(userId);
+    }
+
+    @Override
+    public List<Channel> getUserChannelsByToken(String fcmToken) {
+        Query query = new Query(where("membersFCMTokens").in(fcmToken));
+        return mongoTemplate.find(query, Channel.class);
     }
 
 }
