@@ -9,8 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by aselsan on 27.03.2018 at 18:02.
@@ -31,18 +32,20 @@ public class UserController {
 
     @RequestMapping(value = "user/channel")
     public ResponseEntity<?> getUserChannels(@RequestParam("userId") String userId, @RequestParam("fcmToken") String token){
-        List<Channel> userChannels = new ArrayList<>();
+        Map<String, Channel> userChannels = new HashMap<>();
 
         if(userId != null && !userId.isEmpty()){
-            userChannels.addAll(channelPresenter.getUserChannel(userId));
+            List<Channel> list = channelPresenter.getUserChannel(userId);
+            list.forEach(channel -> userChannels.put(channel.id, channel));
             System.out.println("found channels by user id");
         }
 
         if(token != null && !token.isEmpty()){
-            userChannels.addAll(channelPresenter.getUserChannelByToken(token));
+            List<Channel> list = channelPresenter.getUserChannelByToken(token);
+            list.forEach(channel -> userChannels.put(channel.id, channel));
             System.out.println("found channels by token");
         }
-        return new ResponseEntity<>(userChannels, AppConstants.HTTP_STATUS_OK);
+        return new ResponseEntity<>(userChannels.values(), AppConstants.HTTP_STATUS_OK);
     }
 
     @RequestMapping(value = "/user/add", method = RequestMethod.POST)
@@ -58,8 +61,8 @@ public class UserController {
             return new ResponseEntity<>(newChannel, AppConstants.HTTP_STATUS_OK);
         } catch (IOException | IllegalArgumentException e) {
             // TODO loglama eklenmeli
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getLocalizedMessage(), AppConstants.HTTP_STATUS_BAD_REQUEST);
+            System.err.println(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), AppConstants.HTTP_STATUS_BAD_REQUEST);
         }
 
     }
