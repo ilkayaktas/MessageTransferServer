@@ -4,6 +4,7 @@ import edu.ilkayaktas.healthnetwork.model.db.Channel;
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import edu.ilkayaktas.healthnetwork.model.utils.AppConstants;
 import edu.ilkayaktas.healthnetwork.rest.user.service.ChannelPresenter;
+import edu.ilkayaktas.healthnetwork.rest.user.service.UserPresenter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,9 @@ public class UserController {
 
     @Autowired
     ChannelPresenter channelPresenter;
+
+    @Autowired
+    UserPresenter userPresenter;
 
 
     @RequestMapping(value = "user/get")
@@ -48,10 +52,10 @@ public class UserController {
         return new ResponseEntity<>(userChannels.values(), AppConstants.HTTP_STATUS_OK);
     }
 
-    @RequestMapping(value = "/user/add", method = RequestMethod.POST)
-    public ResponseEntity<?> addUser(@RequestBody User user) {
-
-        return null;
+    @RequestMapping(value = "/user/save", method = RequestMethod.POST)
+    public ResponseEntity<?> saveUser(@RequestBody User user) {
+        User usr = userPresenter.saveOrUpdate(user);
+        return new ResponseEntity<>(usr, AppConstants.HTTP_STATUS_OK);
     }
 
     @RequestMapping(value = "channel/create", method = RequestMethod.POST)
@@ -67,9 +71,8 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "channel/update", method = RequestMethod.PUT)
-    public ResponseEntity<?> updateChannel(@RequestParam("id") String channelId, @RequestParam("memberId") String memberId) {
-
+    @RequestMapping(value = "channel/update", method = RequestMethod.POST)
+    public ResponseEntity<?> updateChannel(@RequestParam("id") String channelId, @RequestParam("memberFcmToken") String memberFcmToken) {
         return null;
     }
 

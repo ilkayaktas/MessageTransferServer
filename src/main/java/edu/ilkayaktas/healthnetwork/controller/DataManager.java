@@ -174,6 +174,8 @@ public class DataManager implements IDataManager{
             updateUserField(user.userId, "email", user.email);
             updateUserField(user.userId, "name", user.name);
             updateUserField(user.userId, "picture", user.picture);
+            updateUserField(user.userId, "fcmToken", user.fcmToken);
+            updateUserField(user.userId, "userId", user.userId);
             return getUser(user.userId);
         }else{
             return saveUser(user);
