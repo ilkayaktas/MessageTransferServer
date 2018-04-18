@@ -5,14 +5,13 @@ import edu.ilkayaktas.healthnetwork.model.db.User;
 import edu.ilkayaktas.healthnetwork.model.utils.AppConstants;
 import edu.ilkayaktas.healthnetwork.rest.user.service.ChannelPresenter;
 import edu.ilkayaktas.healthnetwork.rest.user.service.UserPresenter;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by aselsan on 27.03.2018 at 18:02.
@@ -27,6 +26,8 @@ public class UserController {
     @Autowired
     UserPresenter userPresenter;
 
+    @Autowired
+    Logger logger;
 
     @RequestMapping(value = "user/get")
     public ResponseEntity<User> getUser(@RequestParam("userId") String userId){
@@ -35,21 +36,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "user/channel")
-    public ResponseEntity<?> getUserChannels(@RequestParam("userId") String userId, @RequestParam("fcmToken") String token){
-        Map<String, Channel> userChannels = new HashMap<>();
+    public ResponseEntity<?> getUserChannels(@RequestParam("userId") String userId){
 
         if(userId != null && !userId.isEmpty()){
             List<Channel> list = channelPresenter.getUserChannel(userId);
-            list.forEach(channel -> userChannels.put(channel.id, channel));
-            System.out.println("found channels by user id");
+            return new ResponseEntity<>(list, AppConstants.HTTP_STATUS_OK);
         }
 
-        if(token != null && !token.isEmpty()){
-            List<Channel> list = channelPresenter.getUserChannelByToken(token);
-            list.forEach(channel -> userChannels.put(channel.id, channel));
-            System.out.println("found channels by token");
-        }
-        return new ResponseEntity<>(userChannels.values(), AppConstants.HTTP_STATUS_OK);
+        return new ResponseEntity<>("userId is empty!", AppConstants.HTTP_STATUS_BAD_REQUEST);
     }
 
     @RequestMapping(value = "/user/save", method = RequestMethod.POST)

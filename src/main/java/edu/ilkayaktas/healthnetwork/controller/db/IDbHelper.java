@@ -36,6 +36,6 @@ public interface IDbHelper {
     Channel saveChannel(@NonNull Channel channel);
     Channel getChannelById(@NonNull String channelId);
     List<Channel> getUserChannels(@NonNull String userId);
-    List<Channel> getUserChannelsByToken(@NonNull String fcmToken);
+    List<Channel> getUserChannelsByGuestUserId(@NonNull String guestUserId);
 
 }

@@ -5,6 +5,8 @@ import edu.ilkayaktas.healthnetwork.model.api.FCMChannel;
 import edu.ilkayaktas.healthnetwork.model.api.FCMChannelResponse;
 import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -15,9 +17,12 @@ import java.io.IOException;
 
 public class ApiHelper implements IApiHelper {
 
+    @Autowired
+    Logger logger;
+
     @PostConstruct
     public void init() {
-        System.out.println("ApiHelper is constructed!");
+        logger.info("ApiHelper is constructed!");
     }
 
     @Override

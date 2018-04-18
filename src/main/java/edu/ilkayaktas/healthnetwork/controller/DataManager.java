@@ -8,6 +8,7 @@ import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import edu.ilkayaktas.healthnetwork.model.rest.AuthorizationData;
 import edu.ilkayaktas.healthnetwork.model.utils.AppConstants;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
@@ -22,7 +23,8 @@ import java.util.List;
 
 public class DataManager implements IDataManager{
 
-    // TODO upsertUserField performans olarak değerlendirilecek
+    @Autowired
+    Logger logger;
 
     @Autowired
     private IDbHelper dbHelper;
@@ -32,7 +34,7 @@ public class DataManager implements IDataManager{
 
     @PostConstruct
     public void init() {
-        System.out.println("DataManager is constructed!");
+        logger.info("DataManager is constructed!");
     }
 
 
@@ -127,8 +129,8 @@ public class DataManager implements IDataManager{
     }
 
     @Override
-    public List<Channel> getUserChannelsByToken(String fcmToken) {
-        return dbHelper.getUserChannelsByToken(fcmToken);
+    public List<Channel> getUserChannelsByGuestUserId(String guestUserId) {
+        return dbHelper.getUserChannelsByGuestUserId(guestUserId);
     }
 
     @Override

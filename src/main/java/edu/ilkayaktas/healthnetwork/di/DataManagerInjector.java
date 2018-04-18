@@ -6,6 +6,8 @@ import edu.ilkayaktas.healthnetwork.controller.api.ApiHelper;
 import edu.ilkayaktas.healthnetwork.controller.api.IApiHelper;
 import edu.ilkayaktas.healthnetwork.controller.db.DbHelper;
 import edu.ilkayaktas.healthnetwork.controller.db.IDbHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,4 +32,7 @@ public class DataManagerInjector {
         return new ApiHelper();
     }
 
+    @Bean Logger provideLogger(){
+        return LoggerFactory.getLogger("MessageTransferServer");
+    }
 }

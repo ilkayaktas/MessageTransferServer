@@ -9,6 +9,7 @@ import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
 import edu.ilkayaktas.healthnetwork.model.db.Channel;
 import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
 import edu.ilkayaktas.healthnetwork.model.db.User;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
@@ -27,8 +28,9 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
  */
 
 public class DbHelper implements IDbHelper {
-    // TODO Update metotları için performans incelenecek.
 
+    @Autowired
+    Logger logger;
 
     @Autowired
     OnlineUsersRepository onlineUsersRepository;
@@ -47,7 +49,7 @@ public class DbHelper implements IDbHelper {
 
     @PostConstruct
     public void init() {
-        System.out.println("DbHelper is constructed!");
+        logger.info("DbHelper is constructed!");
     }
 
     @Override
@@ -146,8 +148,8 @@ public class DbHelper implements IDbHelper {
     }
 
     @Override
-    public List<Channel> getUserChannelsByToken(String fcmToken) {
-        Query query = new Query(where("membersFCMTokens").in(fcmToken));
+    public List<Channel> getUserChannelsByGuestUserId(String guestUserId) {
+        Query query = new Query(where("guestUserId").in(guestUserId));
         return mongoTemplate.find(query, Channel.class);
     }
 
