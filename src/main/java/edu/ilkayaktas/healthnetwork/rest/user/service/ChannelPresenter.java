@@ -30,7 +30,7 @@ public class ChannelPresenter {
     Logger logger;
 
     public Channel createChannel(Channel channel) throws IOException {
-        User user = dataManager.getUser(channel.guestUserId.get(0));
+        User user = dataManager.getUser(channel.guestUserIds.get(0));
         channel.notificationKey = dataManager.createFCMGroup(channel.channelName, user.fcmToken);
         return dataManager.saveChannel(channel);
     }
@@ -41,7 +41,7 @@ public class ChannelPresenter {
 
         if(user != null && channel != null){
             dataManager.addUserToFCMGroup(channel.channelName, channel.notificationKey, user.fcmToken);
-            channel.guestUserId.add(user.userId);
+            channel.guestUserIds.add(user.userId);
 
             dataManager.saveChannel(channel);
             return channel;
@@ -71,4 +71,9 @@ public class ChannelPresenter {
     private List<Channel> getUserChannelsByGuestUserId(String guestUserId){
         return dataManager.getUserChannelsByGuestUserId(guestUserId);
     }
+
+    public Channel getChannel(String channelId){
+        return dataManager.getChannelById(channelId);
+    }
+
 }

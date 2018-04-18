@@ -149,7 +149,7 @@ public class DbHelper implements IDbHelper {
 
     @Override
     public List<Channel> getUserChannelsByGuestUserId(String guestUserId) {
-        Query query = new Query(where("guestUserId").in(guestUserId));
+        Query query = new Query(where("guestUserIds").in(guestUserId));
         return mongoTemplate.find(query, Channel.class);
     }
 

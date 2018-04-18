@@ -25,4 +25,8 @@ public class UserPresenter {
     public User getUserByEmail(String email){
         return dataManager.getUserByEmail(email);
     }
+
+    public User getUser(String userId){
+        return dataManager.getUser(userId);
+    }
 }

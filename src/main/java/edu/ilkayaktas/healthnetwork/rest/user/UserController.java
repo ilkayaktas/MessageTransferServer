@@ -31,12 +31,15 @@ public class UserController {
 
     @RequestMapping(value = "user/get")
     public ResponseEntity<User> getUser(@RequestParam("userId") String userId){
+        logger.info("user/get"+" userId:"+userId);
 
-        return null;
+        User user = userPresenter.getUser(userId);
+        return new ResponseEntity<>(user, AppConstants.HTTP_STATUS_OK);
     }
 
     @RequestMapping(value = "user/channel")
     public ResponseEntity<?> getUserChannels(@RequestParam("userId") String userId){
+        logger.info("user/channel"+" userId:"+userId);
 
         if(userId != null && !userId.isEmpty()){
             List<Channel> list = channelPresenter.getUserChannel(userId);
@@ -48,6 +51,8 @@ public class UserController {
 
     @RequestMapping(value = "/user/save", method = RequestMethod.POST)
     public ResponseEntity<?> saveUser(@RequestBody User user) {
+        logger.info("/user/save"+" user:"+user);
+
         User usr = userPresenter.saveOrUpdate(user);
         return new ResponseEntity<>(usr, AppConstants.HTTP_STATUS_OK);
     }
@@ -55,6 +60,8 @@ public class UserController {
     @RequestMapping(value = "channel/create", method = RequestMethod.POST)
     public ResponseEntity<?> addChannel(@RequestBody Channel channel) {
         try {
+            logger.info("channel/create"+" channel:"+channel);
+
             Channel newChannel = channelPresenter.createChannel(channel);
             return new ResponseEntity<>(newChannel, AppConstants.HTTP_STATUS_OK);
         } catch (IOException | IllegalArgumentException e) {
@@ -68,6 +75,8 @@ public class UserController {
     @RequestMapping(value = "channel/update", method = RequestMethod.POST)
     public ResponseEntity<?> updateChannel(@RequestParam("id") String channelId, @RequestParam("email") String email) {
         try {
+            logger.info("channel/update"+" id:"+channelId+" email:"+email);
+
             Channel channel = channelPresenter.updateChannel(channelId, email);
             return new ResponseEntity<>(channel, AppConstants.HTTP_STATUS_OK);
         } catch (IOException | IllegalArgumentException e) {
@@ -75,6 +84,14 @@ public class UserController {
             System.err.println(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), AppConstants.HTTP_STATUS_BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(value = "channel/get")
+    public ResponseEntity<Channel> getChannel(@RequestParam("id") String channelId){
+        logger.info("channel/get"+" id:"+channelId);
+
+        Channel channel = channelPresenter.getChannel(channelId);
+        return new ResponseEntity<>(channel, AppConstants.HTTP_STATUS_OK);
     }
 
 }
