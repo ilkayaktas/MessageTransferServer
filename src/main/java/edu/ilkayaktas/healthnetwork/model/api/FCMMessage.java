@@ -15,4 +15,8 @@ public class FCMMessage {
     @Expose
     public Notification notification;
 
+    public FCMMessage() {
+        data = new Data();
+        notification = new Notification();
+    }
 }

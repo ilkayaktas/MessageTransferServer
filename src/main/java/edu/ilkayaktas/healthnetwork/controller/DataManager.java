@@ -209,6 +209,8 @@ public class DataManager implements IDataManager{
 
     @Override
     public void sendMessageToFCMGroup(Message message) throws IOException {
+        Channel ch = getChannelById(message.toChannelId);
+        message.toChannelId = ch.notificationKey;
         apiHelper.sendMessageToFCMGroup(message);
     }
 
