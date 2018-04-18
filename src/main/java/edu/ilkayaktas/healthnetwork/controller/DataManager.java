@@ -2,10 +2,7 @@ package edu.ilkayaktas.healthnetwork.controller;
 
 import edu.ilkayaktas.healthnetwork.controller.api.IApiHelper;
 import edu.ilkayaktas.healthnetwork.controller.db.IDbHelper;
-import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
-import edu.ilkayaktas.healthnetwork.model.db.Channel;
-import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
-import edu.ilkayaktas.healthnetwork.model.db.User;
+import edu.ilkayaktas.healthnetwork.model.db.*;
 import edu.ilkayaktas.healthnetwork.model.rest.AuthorizationData;
 import edu.ilkayaktas.healthnetwork.model.utils.AppConstants;
 import org.slf4j.Logger;
@@ -208,5 +205,15 @@ public class DataManager implements IDataManager{
     @Override
     public String addUserToFCMGroup(String groupName, String notificationKey, String fcmToken) throws IOException {
         return apiHelper.addUserToFCMGroup(groupName,notificationKey,fcmToken);
+    }
+
+    @Override
+    public void sendMessageToFCMGroup(Message message) throws IOException {
+        apiHelper.sendMessageToFCMGroup(message);
+    }
+
+    @Override
+    public void sendMessageToUser(Message message) throws IOException {
+        apiHelper.sendMessageToUser(message);
     }
 }

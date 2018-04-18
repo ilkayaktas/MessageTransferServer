@@ -3,6 +3,9 @@ package edu.ilkayaktas.healthnetwork.controller.api;
 import com.google.gson.Gson;
 import edu.ilkayaktas.healthnetwork.model.api.FCMChannel;
 import edu.ilkayaktas.healthnetwork.model.api.FCMChannelResponse;
+import edu.ilkayaktas.healthnetwork.model.api.FCMMessage;
+import edu.ilkayaktas.healthnetwork.model.api.FCMMessageResponse;
+import edu.ilkayaktas.healthnetwork.model.db.Message;
 import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.slf4j.Logger;
@@ -104,6 +107,57 @@ public class ApiHelper implements IApiHelper {
                 .build();
 
         return extractNotificationKey(okClient, request);
+
+    }
+
+    @Override
+    public void sendMessageToFCMGroup(Message message) throws IOException {
+        FCMMessage msg = new FCMMessage();
+        msg.to = message.toChannelId;
+        msg.data.messageText = message.messageText;
+
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        // set your desired log level
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient okClient = new OkHttpClient.Builder()
+                .addInterceptor(logging)
+                .addInterceptor(chain -> {
+                    Request original = chain.request();
+
+                    Request request = original.newBuilder()
+                            .addHeader("Content-Type", "application/json")
+                            .addHeader("Authorization", "key="+"AAAAqXV2Pr0:APA91bFNOinyYTG9AGoIWCennEPtmSmroK_be97FiUk6xdF0oIpo1VZ_LMBt2BFYHqD_XZWqpXTeUVdgRQTu_zpYSpF1Topt2fhSYPxBAa1-MlbEmRhMohP-h27RUcSb63DC1MCOymkR")
+                            .method(original.method(), original.body())
+                            .build();
+
+                    return chain.proceed(request);
+                })
+                .build();
+
+        MediaType JSON
+                = MediaType.parse("application/json; charset=utf-8");
+        RequestBody body = RequestBody.create(JSON, new Gson().toJson(msg));
+
+        Request request = new Request.Builder()
+                .url("https://fcm.googleapis.com/fcm/send")
+                .post(body)
+                .build();
+
+        Response response = okClient.newCall(request).execute();
+        FCMMessageResponse fcmChannelResponse = new Gson().fromJson(response.body().string(), FCMMessageResponse.class);
+
+        if(response.code() == 200) {
+            return ;
+        }
+
+        if(response.code() == 400){
+            throw new IllegalArgumentException("Number of device that is failed to receive message: " + fcmChannelResponse.failure);
+        }
+    }
+
+    @Override
+    public void sendMessageToUser(Message message) throws IOException {
 
     }
 

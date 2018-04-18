@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 import java.util.Date;
 
 /**
- * Created by aselsan on 18.04.2018 at 11:08.
+ * Created by ilkayaktas on 18.04.2018 at 11:08.
  */
 
 public class Message {

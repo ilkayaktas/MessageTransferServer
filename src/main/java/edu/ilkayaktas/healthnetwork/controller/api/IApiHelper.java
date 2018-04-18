@@ -1,5 +1,7 @@
 package edu.ilkayaktas.healthnetwork.controller.api;
 
+import edu.ilkayaktas.healthnetwork.model.db.Message;
+
 import java.io.IOException;
 
 /**
@@ -11,4 +13,7 @@ public interface IApiHelper {
 
     String addUserToFCMGroup(String groupName, String notificationKey, String fcmToken) throws IOException;
 
+    void sendMessageToFCMGroup(Message message) throws IOException;
+
+    void sendMessageToUser(Message message) throws IOException;
 }

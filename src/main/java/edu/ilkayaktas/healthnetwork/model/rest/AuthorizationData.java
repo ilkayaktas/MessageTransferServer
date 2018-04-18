@@ -3,7 +3,7 @@ package edu.ilkayaktas.healthnetwork.model.rest;
 import org.springframework.http.HttpStatus;
 
 /**
- * Created by aselsan on 27.03.2018 at 17:20.
+ * Created by ilkayaktas on 27.03.2018 at 17:20.
  */
 
 public class AuthorizationData {

@@ -3,7 +3,7 @@ package edu.ilkayaktas.healthnetwork.model.utils;
 import org.springframework.http.HttpStatus;
 
 /**
- * Created by aselsan on 27.03.2018 at 17:10.
+ * Created by ilkayaktas on 27.03.2018 at 17:10.
  */
 
 public class AppConstants {

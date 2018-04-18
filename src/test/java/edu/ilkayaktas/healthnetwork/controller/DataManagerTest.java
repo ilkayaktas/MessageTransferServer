@@ -3,7 +3,7 @@ package edu.ilkayaktas.healthnetwork.controller;
 import org.junit.Test;
 
 /**
- * Created by aselsan on 27.03.2018 at 17:56.
+ * Created by ilkayaktas on 27.03.2018 at 17:56.
  */
 public class DataManagerTest {
 
