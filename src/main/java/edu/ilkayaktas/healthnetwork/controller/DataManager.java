@@ -72,6 +72,16 @@ public class DataManager implements IDataManager{
     }
 
     @Override
+    public User getUserByEmail(String email) {
+        return dbHelper.getUserByEmail(email);
+    }
+
+    @Override
+    public Channel getChannelById(String channelId) {
+        return dbHelper.getChannelById(channelId);
+    }
+
+    @Override
     public User saveUser(User user) {
         return dbHelper.saveUser(user);
     }

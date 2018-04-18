@@ -18,6 +18,7 @@ import org.springframework.lang.NonNull;
 import javax.annotation.PostConstruct;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
@@ -91,7 +92,7 @@ public class DbHelper implements IDbHelper {
     public boolean updateUserField(@NonNull String userId, @NonNull String field, @NonNull String value){
         Query query = new Query(where("userId").is(userId));
 
-        UpdateResult result = mongoTemplate.updateFirst(query, Update.update(field, value), AuthenticationData.class);
+        UpdateResult result = mongoTemplate.updateFirst(query, Update.update(field, value), User.class);
 
         return result.wasAcknowledged();
     }
@@ -99,6 +100,11 @@ public class DbHelper implements IDbHelper {
     @Override
     public User getUser(@NonNull String userId) {
         return userRepository.findByUserId(userId);
+    }
+
+    @Override
+    public User getUserByEmail(@NonNull String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
@@ -126,6 +132,12 @@ public class DbHelper implements IDbHelper {
     @Override
     public Channel saveChannel(Channel channel) {
         return channelRepository.save(channel);
+    }
+
+    @Override
+    public Channel getChannelById(String channelId) {
+        Optional<Channel> opt = channelRepository.findById(channelId);
+        return opt.orElse(null);
     }
 
     @Override

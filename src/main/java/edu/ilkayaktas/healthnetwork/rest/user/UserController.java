@@ -72,8 +72,15 @@ public class UserController {
     }
 
     @RequestMapping(value = "channel/update", method = RequestMethod.POST)
-    public ResponseEntity<?> updateChannel(@RequestParam("id") String channelId, @RequestParam("memberFcmToken") String memberFcmToken) {
-        return null;
+    public ResponseEntity<?> updateChannel(@RequestParam("id") String channelId, @RequestParam("email") String email) {
+        try {
+            Channel channel = channelPresenter.updateChannel(channelId, email);
+            return new ResponseEntity<>(channel, AppConstants.HTTP_STATUS_OK);
+        } catch (IOException | IllegalArgumentException e) {
+            // TODO loglama eklenmeli
+            System.err.println(e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), AppConstants.HTTP_STATUS_BAD_REQUEST);
+        }
     }
 
 }

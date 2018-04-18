@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 
 public interface IDataManager extends IDbHelper, IApiHelper {
     ResponseEntity<AuthorizationData> isRequestAuthorized(String userId, String token);
+
     User upsertUser(User user);
+
     AuthenticationData upsertAuthenticationData(AuthenticationData authenticationData);
 }

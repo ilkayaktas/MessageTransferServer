@@ -24,6 +24,7 @@ public interface IDbHelper {
     User saveUser(@NonNull User user);
     boolean updateUserField(@NonNull String userId, @NonNull String field, @NonNull String value);
     User getUser(@NonNull String userId);
+    User getUserByEmail(@NonNull String email);
     boolean isUserExist(@NonNull String userId);
 
     // online status
@@ -33,6 +34,8 @@ public interface IDbHelper {
 
     // channel
     Channel saveChannel(@NonNull Channel channel);
+    Channel getChannelById(@NonNull String channelId);
     List<Channel> getUserChannels(@NonNull String userId);
     List<Channel> getUserChannelsByToken(@NonNull String fcmToken);
+
 }

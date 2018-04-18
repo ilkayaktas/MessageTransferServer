@@ -21,4 +21,8 @@ public class UserPresenter {
     public User saveOrUpdate(User user){
         return dataManager.upsertUser(user);
     }
+
+    public User getUserByEmail(String email){
+        return dataManager.getUserByEmail(email);
+    }
 }
