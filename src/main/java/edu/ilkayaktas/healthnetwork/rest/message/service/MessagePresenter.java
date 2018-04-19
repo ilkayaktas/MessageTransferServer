@@ -22,7 +22,7 @@ public class MessagePresenter {
     public void distributeMessage(Message message) throws IOException {
         if(message.toChannelId != null && !message.toChannelId.isEmpty()){
             dataManager.sendMessageToFCMGroupByUserId(message);
-        } else{
+        } else {
             throw new IllegalArgumentException("Message destination is undefined. toChannelId or toUserId should be set.");
         }
     }
