@@ -18,7 +18,5 @@ public class Message {
 
     public String toChannelId;
 
-    public String toUserId;
-
     public Date createdAt;
 }

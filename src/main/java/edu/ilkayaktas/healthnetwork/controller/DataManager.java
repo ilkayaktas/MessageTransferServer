@@ -71,6 +71,15 @@ public class DataManager implements IDataManager{
     }
 
     @Override
+    public void sendMessageToFCMGroupByUserId(Message message) throws IOException {
+        Channel ch = getChannelById(message.toChannelId);
+        for (String userId : ch.guestUserIds) {
+            User user = getUser(userId);
+            sendMessageToUser(message, user.fcmToken);
+        }
+    }
+
+    @Override
     public User getUserByEmail(String email) {
         return dbHelper.getUserByEmail(email);
     }
@@ -215,7 +224,7 @@ public class DataManager implements IDataManager{
     }
 
     @Override
-    public void sendMessageToUser(Message message) throws IOException {
-        apiHelper.sendMessageToUser(message);
+    public void sendMessageToUser(Message message, String fcmToken) throws IOException {
+        apiHelper.sendMessageToUser(message, fcmToken);
     }
 }

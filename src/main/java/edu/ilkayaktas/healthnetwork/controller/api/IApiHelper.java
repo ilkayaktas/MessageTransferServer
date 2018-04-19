@@ -15,5 +15,5 @@ public interface IApiHelper {
 
     void sendMessageToFCMGroup(Message message) throws IOException;
 
-    void sendMessageToUser(Message message) throws IOException;
+    void sendMessageToUser(Message message, String fcmToken) throws IOException;
 }
