@@ -10,13 +10,13 @@ public class FCMMessage {
     public String to;
     @SerializedName("data")
     @Expose
-    public Data data;
+    public FCMData data;
     @SerializedName("notification")
     @Expose
-    public Notification notification;
+    public FCMNotification notification;
 
     public FCMMessage() {
-        data = new Data();
-        notification = new Notification();
+        data = new FCMData();
+        notification = new FCMNotification();
     }
 }
