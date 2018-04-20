@@ -3,12 +3,9 @@ package edu.ilkayaktas.healthnetwork.controller;
 import edu.ilkayaktas.healthnetwork.controller.api.IApiHelper;
 import edu.ilkayaktas.healthnetwork.controller.db.IDbHelper;
 import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
-import edu.ilkayaktas.healthnetwork.model.db.Message;
 import edu.ilkayaktas.healthnetwork.model.db.User;
 import edu.ilkayaktas.healthnetwork.model.rest.AuthorizationData;
 import org.springframework.http.ResponseEntity;
-
-import java.io.IOException;
 
 /**
  * Created by ilkayaktas on 25.03.2018 at 16:01.
@@ -21,5 +18,4 @@ public interface IDataManager extends IDbHelper, IApiHelper {
 
     AuthenticationData upsertAuthenticationData(AuthenticationData authenticationData);
 
-    void sendMessageToFCMGroupByUserId(Message message) throws IOException;
 }

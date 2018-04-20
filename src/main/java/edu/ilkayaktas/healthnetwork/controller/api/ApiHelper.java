@@ -1,6 +1,7 @@
 package edu.ilkayaktas.healthnetwork.controller.api;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import edu.ilkayaktas.healthnetwork.model.api.FCMChannel;
 import edu.ilkayaktas.healthnetwork.model.api.FCMChannelResponse;
 import edu.ilkayaktas.healthnetwork.model.api.FCMMessage;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -72,12 +74,12 @@ public class ApiHelper implements IApiHelper {
     }
 
     @Override
-    public String addUserToFCMGroup(String groupName, String notificationKey, String fcmToken) throws IOException {
+    public String addUserToFCMGroup(String groupName, String notificationKey, List<String> fcmToken) throws IOException {
         FCMChannel fcmChannel = new FCMChannel();
         fcmChannel.notificationKeyName = groupName;
         fcmChannel.notificationKey = notificationKey;
         fcmChannel.operation = "add";
-        fcmChannel.registrationIds.add(fcmToken);
+        fcmChannel.registrationIds = fcmToken;
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level
@@ -113,9 +115,9 @@ public class ApiHelper implements IApiHelper {
     }
 
     @Override
-    public void sendMessageToFCMGroup(Message message) throws IOException {
+    public void sendMessageToFCMGroup(Message message, String notificationKey) throws IOException {
         FCMMessage msg = new FCMMessage();
-        msg.to = message.toChannelId;
+        msg.to = notificationKey;
         msg.data.messageText = message.messageText;
         msg.data.createdAt = message.createdAt;
         msg.data.senderUserId = message.senderUserId;
@@ -143,7 +145,10 @@ public class ApiHelper implements IApiHelper {
 
         MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(JSON, new Gson().toJson(msg));
+        RequestBody body = RequestBody.create(JSON,
+                                    new GsonBuilder()
+                                        .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                                        .create().toJson(msg));
 
         Request request = new Request.Builder()
                 .url("https://fcm.googleapis.com/fcm/send")
@@ -162,55 +167,7 @@ public class ApiHelper implements IApiHelper {
         }
     }
 
-    @Override
-    public void sendMessageToUser(Message message, String fcmToken) throws IOException {
-        FCMMessage msg = new FCMMessage();
-        msg.to = fcmToken;
-        msg.data.messageText = message.messageText;
-        msg.data.createdAt = message.createdAt;
-        msg.data.senderUserId = message.senderUserId;
-        msg.data.toChannelId = message.toChannelId;
-        msg.data.id = UUID.randomUUID().toString();
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        // set your desired log level
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient okClient = new OkHttpClient.Builder()
-                .addInterceptor(logging)
-                .addInterceptor(chain -> {
-                    Request original = chain.request();
-
-                    Request request = original.newBuilder()
-                            .addHeader("Content-Type", "application/json")
-                            .addHeader("Authorization", "key="+ authKey)
-                            .method(original.method(), original.body())
-                            .build();
-
-                    return chain.proceed(request);
-                })
-                .build();
-
-        MediaType JSON
-                = MediaType.parse("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(JSON, new Gson().toJson(msg));
-
-        Request request = new Request.Builder()
-                .url("https://fcm.googleapis.com/fcm/send")
-                .post(body)
-                .build();
-
-        Response response = okClient.newCall(request).execute();
-        FCMMessageResponse fcmChannelResponse = new Gson().fromJson(response.body().string(), FCMMessageResponse.class);
-
-        if(response.code() == 200) {
-            return ;
-        }
-
-        if(response.code() == 400){
-            throw new IllegalArgumentException("Number of device that is failed to receive message: " + fcmChannelResponse.failure);
-        }
-    }
 
     private String extractNotificationKey(OkHttpClient okClient, Request request) throws IOException {
         Response response = okClient.newCall(request).execute();

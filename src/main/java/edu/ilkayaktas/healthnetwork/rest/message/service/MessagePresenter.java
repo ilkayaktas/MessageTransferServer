@@ -1,6 +1,7 @@
 package edu.ilkayaktas.healthnetwork.rest.message.service;
 
 import edu.ilkayaktas.healthnetwork.controller.IDataManager;
+import edu.ilkayaktas.healthnetwork.model.db.Channel;
 import edu.ilkayaktas.healthnetwork.model.db.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,8 @@ public class MessagePresenter {
 
     public void distributeMessage(Message message) throws IOException {
         if(message.toChannelId != null && !message.toChannelId.isEmpty()){
-            dataManager.sendMessageToFCMGroupByUserId(message);
+            Channel ch = dataManager.getChannelById(message.toChannelId);
+            dataManager.sendMessageToFCMGroup(message, ch.notificationKey);
         } else {
             throw new IllegalArgumentException("Message destination is undefined. toChannelId or toUserId should be set.");
         }

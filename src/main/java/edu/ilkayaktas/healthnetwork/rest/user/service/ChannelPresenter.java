@@ -40,10 +40,16 @@ public class ChannelPresenter {
         Channel channel = dataManager.getChannelById(channelId);
 
         if(user != null && channel != null){
-            dataManager.addUserToFCMGroup(channel.channelName, channel.notificationKey, user.fcmToken);
+//            dataManager.addUserToFCMGroup(channel.channelName, channel.notificationKey, user.fcmToken);
             channel.guestUserIds.add(user.userId);
-
             dataManager.saveChannel(channel);
+
+            List<String> fcmTokenList = new ArrayList<>();
+            for (String userId : channel.guestUserIds) {
+                User usr = dataManager.getUser(userId);
+                fcmTokenList.add(usr.fcmToken);
+            }
+            dataManager.addUserToFCMGroup(channel.channelName, channel.notificationKey, fcmTokenList);
             return channel;
         }else{
             throw new IllegalArgumentException("User email or channel id is incorrect!");
