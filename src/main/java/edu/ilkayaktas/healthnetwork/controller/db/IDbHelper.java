@@ -1,9 +1,6 @@
 package edu.ilkayaktas.healthnetwork.controller.db;
 
-import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
-import edu.ilkayaktas.healthnetwork.model.db.Channel;
-import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
-import edu.ilkayaktas.healthnetwork.model.db.User;
+import edu.ilkayaktas.healthnetwork.model.db.*;
 import org.springframework.lang.NonNull;
 
 import java.util.List;
@@ -38,4 +35,7 @@ public interface IDbHelper {
     List<Channel> getUserChannels(@NonNull String userId);
     List<Channel> getUserChannelsByGuestUserId(@NonNull String guestUserId);
 
+    // message
+    Message saveMessage(@NonNull Message message);
+    List<Message> getMessagesByChannel(@NonNull String channelId);
 }

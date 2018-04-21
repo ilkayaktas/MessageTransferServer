@@ -1,14 +1,8 @@
 package edu.ilkayaktas.healthnetwork.controller.db;
 
 import com.mongodb.client.result.UpdateResult;
-import edu.ilkayaktas.healthnetwork.controller.db.mongodb.AuthenticationRepository;
-import edu.ilkayaktas.healthnetwork.controller.db.mongodb.ChannelRepository;
-import edu.ilkayaktas.healthnetwork.controller.db.mongodb.OnlineUsersRepository;
-import edu.ilkayaktas.healthnetwork.controller.db.mongodb.UserRepository;
-import edu.ilkayaktas.healthnetwork.model.db.AuthenticationData;
-import edu.ilkayaktas.healthnetwork.model.db.Channel;
-import edu.ilkayaktas.healthnetwork.model.db.OnlineUser;
-import edu.ilkayaktas.healthnetwork.model.db.User;
+import edu.ilkayaktas.healthnetwork.controller.db.mongodb.*;
+import edu.ilkayaktas.healthnetwork.model.db.*;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -43,6 +37,9 @@ public class DbHelper implements IDbHelper {
 
     @Autowired
     ChannelRepository channelRepository;
+
+    @Autowired
+    MessageRepository messageRepository;
 
     @Autowired
     MongoTemplate mongoTemplate; // for updating data
@@ -151,6 +148,16 @@ public class DbHelper implements IDbHelper {
     public List<Channel> getUserChannelsByGuestUserId(String guestUserId) {
         Query query = new Query(where("guestUserIds").in(guestUserId));
         return mongoTemplate.find(query, Channel.class);
+    }
+
+    @Override
+    public Message saveMessage(Message message) {
+        return messageRepository.save(message);
+    }
+
+    @Override
+    public List<Message> getMessagesByChannel(String channelId) {
+        return messageRepository.getMessageByToChannelId(channelId);
     }
 
 }

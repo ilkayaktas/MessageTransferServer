@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by ilkayaktas on 18.04.2018 at 14:38.
@@ -22,10 +23,16 @@ public class MessagePresenter {
 
     public void distributeMessage(Message message) throws IOException {
         if(message.toChannelId != null && !message.toChannelId.isEmpty()){
+            dataManager.saveMessage(message);
+
             Channel ch = dataManager.getChannelById(message.toChannelId);
             dataManager.sendMessageToFCMGroup(message, ch.notificationKey);
         } else {
             throw new IllegalArgumentException("Message destination is undefined. toChannelId or toUserId should be set.");
         }
+    }
+
+    public List<Message> getMessages(String channelId){
+        return dataManager.getMessagesByChannel(channelId);
     }
 }

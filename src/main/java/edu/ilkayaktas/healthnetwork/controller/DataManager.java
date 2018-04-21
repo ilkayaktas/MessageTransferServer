@@ -131,6 +131,16 @@ public class DataManager implements IDataManager{
     }
 
     @Override
+    public Message saveMessage(Message message) {
+        return dbHelper.saveMessage(message);
+    }
+
+    @Override
+    public List<Message> getMessagesByChannel(String channelId) {
+        return dbHelper.getMessagesByChannel(channelId);
+    }
+
+    @Override
     public ResponseEntity<AuthorizationData> isRequestAuthorized(String userId, String token) {
         User user = getUser(userId);
 

@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by ilkayaktas on 25.03.2018 at 15:59.
@@ -122,7 +121,7 @@ public class ApiHelper implements IApiHelper {
         msg.data.createdAt = message.createdAt;
         msg.data.senderUserId = message.senderUserId;
         msg.data.toChannelId = message.toChannelId;
-        msg.data.id = UUID.randomUUID().toString();
+        msg.data.id = message.id;
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         // set your desired log level
