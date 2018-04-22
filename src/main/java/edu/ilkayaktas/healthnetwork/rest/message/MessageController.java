@@ -1,5 +1,6 @@
 package edu.ilkayaktas.healthnetwork.rest.message;
 
+import edu.ilkayaktas.healthnetwork.model.db.BloodSugar;
 import edu.ilkayaktas.healthnetwork.model.db.HealthData;
 import edu.ilkayaktas.healthnetwork.model.db.Message;
 import edu.ilkayaktas.healthnetwork.model.utils.AppConstants;
@@ -55,7 +56,21 @@ public class MessageController {
     @RequestMapping(value = "/healthdata/get", method = RequestMethod.GET)
     public ResponseEntity<List<HealthData>> getHealthData(@RequestParam("userId") String userId, @RequestParam("healthDataType") String healthDataType) {
         logger.info("healthdata/get"+" userId:"+userId + " healthDataType:"+healthDataType);
-        List<HealthData> healthDataList = messagePresenter.getHealthData(userId, healthDataType);
+        List<HealthData> healthDataList = messagePresenter.getHealthData(userId, Integer.valueOf(healthDataType));
+        return new ResponseEntity<>(healthDataList, AppConstants.HTTP_STATUS_OK);
+    }
+
+    @RequestMapping(value = "/bloodsugar/save", method = RequestMethod.POST)
+    public ResponseEntity<?> saveBloodSugar(@RequestBody BloodSugar bloodSugar) {
+        logger.info("bloodsugar/save"+" bloodSugar:"+bloodSugar);
+        messagePresenter.saveBloodSugar(bloodSugar);
+        return new ResponseEntity<>(AppConstants.HTTP_STATUS_OK);
+    }
+
+    @RequestMapping(value = "/bloodsugar/get", method = RequestMethod.GET)
+    public ResponseEntity<List<BloodSugar>> getBloodSugar(@RequestParam("userId") String userId, @RequestParam("sugarMeasurementType") String sugarMeasurementType) {
+        logger.info("hbloodsugar/get"+" userId:"+userId + " sugarMeasurementType:"+sugarMeasurementType);
+        List<BloodSugar> healthDataList = messagePresenter.getBloodSugar(userId, Integer.valueOf(sugarMeasurementType));
         return new ResponseEntity<>(healthDataList, AppConstants.HTTP_STATUS_OK);
     }
 }

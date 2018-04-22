@@ -39,7 +39,11 @@ public interface IDbHelper {
     Message saveMessage(@NonNull Message message);
     List<Message> getMessagesByChannel(@NonNull String channelId);
 
-    // message
+    // healthdata
     HealthData saveHealthData(@NonNull HealthData healthData);
     List<HealthData> getHealthData(@NonNull String userId, @NonNull HealthData.HealthDataType healthDataType);
+
+    // blood sugar
+    BloodSugar saveBloodSugar(@NonNull BloodSugar bloodSugar);
+    List<BloodSugar> getBloodSugar(@NonNull String userId, @NonNull BloodSugar.SugarMeasurementType sugarMeasurementType);
 }

@@ -151,6 +151,16 @@ public class DataManager implements IDataManager{
     }
 
     @Override
+    public BloodSugar saveBloodSugar(BloodSugar bloodSugar) {
+        return dbHelper.saveBloodSugar(bloodSugar);
+    }
+
+    @Override
+    public List<BloodSugar> getBloodSugar(String userId, BloodSugar.SugarMeasurementType sugarMeasurementType) {
+        return dbHelper.getBloodSugar(userId, sugarMeasurementType);
+    }
+
+    @Override
     public ResponseEntity<AuthorizationData> isRequestAuthorized(String userId, String token) {
         User user = getUser(userId);
 

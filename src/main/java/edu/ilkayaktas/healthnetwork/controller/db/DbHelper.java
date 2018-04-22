@@ -45,6 +45,9 @@ public class DbHelper implements IDbHelper {
     HealthDataRepository healthDataRepository;
 
     @Autowired
+    BloodSugarRepository bloodSugarRepository;
+
+    @Autowired
     MongoTemplate mongoTemplate; // for updating data
 
     @PostConstruct
@@ -171,6 +174,16 @@ public class DbHelper implements IDbHelper {
     @Override
     public List<HealthData> getHealthData(String userId, HealthData.HealthDataType healthDataType) {
         return healthDataRepository.getHealthDataByToUserIdAndHealthDataType(userId, healthDataType);
+    }
+
+    @Override
+    public BloodSugar saveBloodSugar(BloodSugar bloodSugar) {
+        return bloodSugarRepository.save(bloodSugar);
+    }
+
+    @Override
+    public List<BloodSugar> getBloodSugar(String userId, BloodSugar.SugarMeasurementType sugarMeasurementType) {
+        return bloodSugarRepository.getBloodSugarByUserIdAndSugarMeasurementType(userId, sugarMeasurementType);
     }
 
 }
