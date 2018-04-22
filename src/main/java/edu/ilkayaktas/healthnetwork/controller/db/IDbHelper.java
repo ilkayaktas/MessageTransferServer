@@ -38,4 +38,8 @@ public interface IDbHelper {
     // message
     Message saveMessage(@NonNull Message message);
     List<Message> getMessagesByChannel(@NonNull String channelId);
+
+    // message
+    HealthData saveHealthData(@NonNull HealthData healthData);
+    List<HealthData> getHealthData(@NonNull String userId, @NonNull HealthData.HealthDataType healthDataType);
 }

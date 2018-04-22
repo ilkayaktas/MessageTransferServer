@@ -2,6 +2,7 @@ package edu.ilkayaktas.healthnetwork.rest.message.service;
 
 import edu.ilkayaktas.healthnetwork.controller.IDataManager;
 import edu.ilkayaktas.healthnetwork.model.db.Channel;
+import edu.ilkayaktas.healthnetwork.model.db.HealthData;
 import edu.ilkayaktas.healthnetwork.model.db.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,13 @@ public class MessagePresenter {
 
     public List<Message> getMessages(String channelId){
         return dataManager.getMessagesByChannel(channelId);
+    }
+
+    public void saveHealthData(HealthData healthData){
+        dataManager.saveHealthData(healthData);
+    }
+
+    public List<HealthData> getHealthData(String userId, HealthData.HealthDataType healthDataType){
+        return dataManager.getHealthData(userId, healthDataType);
     }
 }

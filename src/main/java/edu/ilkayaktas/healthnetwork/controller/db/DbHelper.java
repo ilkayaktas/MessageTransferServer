@@ -42,6 +42,9 @@ public class DbHelper implements IDbHelper {
     MessageRepository messageRepository;
 
     @Autowired
+    HealthDataRepository healthDataRepository;
+
+    @Autowired
     MongoTemplate mongoTemplate; // for updating data
 
     @PostConstruct
@@ -158,6 +161,16 @@ public class DbHelper implements IDbHelper {
     @Override
     public List<Message> getMessagesByChannel(String channelId) {
         return messageRepository.getMessageByToChannelId(channelId);
+    }
+
+    @Override
+    public HealthData saveHealthData(HealthData healthData) {
+        return healthDataRepository.save(healthData);
+    }
+
+    @Override
+    public List<HealthData> getHealthData(String userId, HealthData.HealthDataType healthDataType) {
+        return healthDataRepository.getHealthDataByToUserIdAndHealthDataType(userId, healthDataType);
     }
 
 }

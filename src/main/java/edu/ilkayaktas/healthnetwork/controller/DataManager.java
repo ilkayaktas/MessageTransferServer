@@ -141,6 +141,16 @@ public class DataManager implements IDataManager{
     }
 
     @Override
+    public HealthData saveHealthData(HealthData healthData) {
+        return dbHelper.saveHealthData(healthData);
+    }
+
+    @Override
+    public List<HealthData> getHealthData(String userId, HealthData.HealthDataType healthDataType) {
+        return dbHelper.getHealthData(userId, healthDataType);
+    }
+
+    @Override
     public ResponseEntity<AuthorizationData> isRequestAuthorized(String userId, String token) {
         User user = getUser(userId);
 

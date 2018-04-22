@@ -1,5 +1,6 @@
 package edu.ilkayaktas.healthnetwork.rest.message;
 
+import edu.ilkayaktas.healthnetwork.model.db.HealthData;
 import edu.ilkayaktas.healthnetwork.model.db.Message;
 import edu.ilkayaktas.healthnetwork.model.utils.AppConstants;
 import edu.ilkayaktas.healthnetwork.rest.message.service.MessagePresenter;
@@ -44,4 +45,17 @@ public class MessageController {
         return new ResponseEntity<>(messages, AppConstants.HTTP_STATUS_OK);
     }
 
+    @RequestMapping(value = "/healthdata/save", method = RequestMethod.POST)
+    public ResponseEntity<?> saveHealthData(@RequestBody HealthData healthData) {
+        logger.info("healthdata/send"+" healthData:"+healthData);
+        messagePresenter.saveHealthData(healthData);
+        return new ResponseEntity<>(AppConstants.HTTP_STATUS_OK);
+    }
+
+    @RequestMapping(value = "/healthdata/get", method = RequestMethod.GET)
+    public ResponseEntity<List<HealthData>> getHealthData(@RequestParam("userId") String userId, @RequestParam("healthDataType") String healthDataType) {
+        logger.info("healthdata/get"+" userId:"+userId + " healthDataType:"+healthDataType);
+        List<HealthData> healthDataList = messagePresenter.getHealthData(userId, healthDataType);
+        return new ResponseEntity<>(healthDataList, AppConstants.HTTP_STATUS_OK);
+    }
 }
