@@ -56,7 +56,7 @@ public class MessageController {
     @RequestMapping(value = "/healthdata/get", method = RequestMethod.GET)
     public ResponseEntity<List<HealthData>> getHealthData(@RequestParam("userId") String userId, @RequestParam("healthDataType") String healthDataType) {
         logger.info("healthdata/get"+" userId:"+userId + " healthDataType:"+healthDataType);
-        List<HealthData> healthDataList = messagePresenter.getHealthData(userId, Integer.valueOf(healthDataType));
+        List<HealthData> healthDataList = messagePresenter.getHealthData(userId, HealthData.HealthDataType.valueOf(healthDataType));
         return new ResponseEntity<>(healthDataList, AppConstants.HTTP_STATUS_OK);
     }
 
@@ -70,7 +70,7 @@ public class MessageController {
     @RequestMapping(value = "/bloodsugar/get", method = RequestMethod.GET)
     public ResponseEntity<List<BloodSugar>> getBloodSugar(@RequestParam("userId") String userId, @RequestParam("sugarMeasurementType") String sugarMeasurementType) {
         logger.info("hbloodsugar/get"+" userId:"+userId + " sugarMeasurementType:"+sugarMeasurementType);
-        List<BloodSugar> healthDataList = messagePresenter.getBloodSugar(userId, Integer.valueOf(sugarMeasurementType));
+        List<BloodSugar> healthDataList = messagePresenter.getBloodSugar(userId, BloodSugar.SugarMeasurementType.valueOf(sugarMeasurementType));
         return new ResponseEntity<>(healthDataList, AppConstants.HTTP_STATUS_OK);
     }
 }

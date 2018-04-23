@@ -166,6 +166,36 @@ public class ApiHelper implements IApiHelper {
         }
     }
 
+    @Override
+    public String getNotificationKeyOfGroup(String groupName) throws IOException {
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        // set your desired log level
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient okClient = new OkHttpClient.Builder()
+                .addInterceptor(logging)
+                .addInterceptor(chain -> {
+                    Request original = chain.request();
+
+                    Request request = original.newBuilder()
+                            .addHeader("Content-Type", "application/json")
+                            .addHeader("Authorization", "key="+authKey)
+                            .addHeader("project_id", "727820156605")
+                            .method(original.method(), original.body())
+                            .build();
+
+                    return chain.proceed(request);
+                })
+                .build();
+
+
+        Request request = new Request.Builder()
+                .url("https://android.googleapis.com/gcm/notification?notification_key_name="+groupName)
+                .get()
+                .build();
+
+        return extractNotificationKey(okClient, request);
+    }
 
 
     private String extractNotificationKey(OkHttpClient okClient, Request request) throws IOException {

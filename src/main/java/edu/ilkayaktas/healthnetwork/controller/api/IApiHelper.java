@@ -16,4 +16,5 @@ public interface IApiHelper {
 
     void sendMessageToFCMGroup(Message message, String notificationKey) throws IOException;
 
+    String getNotificationKeyOfGroup(String groupName) throws IOException;
 }

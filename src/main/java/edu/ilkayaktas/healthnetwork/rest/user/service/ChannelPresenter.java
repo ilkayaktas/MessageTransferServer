@@ -39,7 +39,7 @@ public class ChannelPresenter {
         User user = dataManager.getUserByEmail(email);
         Channel channel = dataManager.getChannelById(channelId);
 
-        if(user != null && channel != null){
+        if(user != null && channel != null && !channel.guestUserIds.contains(user.userId)){
 //            dataManager.addUserToFCMGroup(channel.channelName, channel.notificationKey, user.fcmToken);
             channel.guestUserIds.add(user.userId);
             dataManager.saveChannel(channel);

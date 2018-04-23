@@ -28,9 +28,20 @@ public class MessagePresenter {
             dataManager.saveMessage(message);
 
             Channel ch = dataManager.getChannelById(message.toChannelId);
+            checkChannelExistance(ch);
+
             dataManager.sendMessageToFCMGroup(message, ch.notificationKey);
         } else {
             throw new IllegalArgumentException("Message destination is undefined. toChannelId or toUserId should be set.");
+        }
+    }
+
+    private void checkChannelExistance(Channel channel){
+        try {
+            String notificationKey = dataManager.getNotificationKeyOfGroup(channel.channelName);
+            channel.notificationKey = notificationKey;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

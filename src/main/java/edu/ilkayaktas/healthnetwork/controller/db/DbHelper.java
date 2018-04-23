@@ -173,7 +173,7 @@ public class DbHelper implements IDbHelper {
 
     @Override
     public List<HealthData> getHealthData(String userId, HealthData.HealthDataType healthDataType) {
-        return healthDataRepository.getHealthDataByToUserIdAndHealthDataType(userId, healthDataType);
+        return healthDataRepository.getHealthDataByUserIdAndHealthDataType(userId, healthDataType);
     }
 
     @Override

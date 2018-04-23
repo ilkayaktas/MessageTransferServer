@@ -242,4 +242,9 @@ public class DataManager implements IDataManager{
         apiHelper.sendMessageToFCMGroup(message, notificationKey);
     }
 
+    @Override
+    public String getNotificationKeyOfGroup(String groupName) throws IOException {
+        return apiHelper.getNotificationKeyOfGroup(groupName);
+    }
+
 }
