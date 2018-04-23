@@ -1,6 +1,6 @@
 package edu.ilkayaktas.healthnetwork.rest.message;
 
-import edu.ilkayaktas.healthnetwork.model.db.BloodSugar;
+import edu.ilkayaktas.healthnetwork.model.db.BloodSugarData;
 import edu.ilkayaktas.healthnetwork.model.db.HealthData;
 import edu.ilkayaktas.healthnetwork.model.db.Message;
 import edu.ilkayaktas.healthnetwork.model.utils.AppConstants;
@@ -47,10 +47,10 @@ public class MessageController {
     }
 
     @RequestMapping(value = "/healthdata/save", method = RequestMethod.POST)
-    public ResponseEntity<?> saveHealthData(@RequestBody HealthData healthData) {
+    public ResponseEntity<HealthData> saveHealthData(@RequestBody HealthData healthData) {
         logger.info("healthdata/send"+" healthData:"+healthData);
-        messagePresenter.saveHealthData(healthData);
-        return new ResponseEntity<>(AppConstants.HTTP_STATUS_OK);
+        HealthData healthDataReturned = messagePresenter.saveHealthData(healthData);
+        return new ResponseEntity<>(healthDataReturned, AppConstants.HTTP_STATUS_OK);
     }
 
     @RequestMapping(value = "/healthdata/get", method = RequestMethod.GET)
@@ -61,16 +61,16 @@ public class MessageController {
     }
 
     @RequestMapping(value = "/bloodsugar/save", method = RequestMethod.POST)
-    public ResponseEntity<?> saveBloodSugar(@RequestBody BloodSugar bloodSugar) {
-        logger.info("bloodsugar/save"+" bloodSugar:"+bloodSugar);
-        messagePresenter.saveBloodSugar(bloodSugar);
-        return new ResponseEntity<>(AppConstants.HTTP_STATUS_OK);
+    public ResponseEntity<BloodSugarData> saveBloodSugar(@RequestBody BloodSugarData bloodSugarData) {
+        logger.info("bloodsugar/save"+" bloodSugarData:"+ bloodSugarData);
+        BloodSugarData bloodSugarDataReturned = messagePresenter.saveBloodSugar(bloodSugarData);
+        return new ResponseEntity<>(bloodSugarDataReturned, AppConstants.HTTP_STATUS_OK);
     }
 
     @RequestMapping(value = "/bloodsugar/get", method = RequestMethod.GET)
-    public ResponseEntity<List<BloodSugar>> getBloodSugar(@RequestParam("userId") String userId, @RequestParam("sugarMeasurementType") String sugarMeasurementType) {
+    public ResponseEntity<List<BloodSugarData>> getBloodSugar(@RequestParam("userId") String userId, @RequestParam("sugarMeasurementType") String sugarMeasurementType) {
         logger.info("hbloodsugar/get"+" userId:"+userId + " sugarMeasurementType:"+sugarMeasurementType);
-        List<BloodSugar> healthDataList = messagePresenter.getBloodSugar(userId, BloodSugar.SugarMeasurementType.valueOf(sugarMeasurementType));
+        List<BloodSugarData> healthDataList = messagePresenter.getBloodSugar(userId, BloodSugarData.SugarMeasurementType.valueOf(sugarMeasurementType));
         return new ResponseEntity<>(healthDataList, AppConstants.HTTP_STATUS_OK);
     }
 }

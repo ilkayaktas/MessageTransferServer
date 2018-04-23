@@ -151,12 +151,12 @@ public class DataManager implements IDataManager{
     }
 
     @Override
-    public BloodSugar saveBloodSugar(BloodSugar bloodSugar) {
-        return dbHelper.saveBloodSugar(bloodSugar);
+    public BloodSugarData saveBloodSugar(BloodSugarData bloodSugarData) {
+        return dbHelper.saveBloodSugar(bloodSugarData);
     }
 
     @Override
-    public List<BloodSugar> getBloodSugar(String userId, BloodSugar.SugarMeasurementType sugarMeasurementType) {
+    public List<BloodSugarData> getBloodSugar(String userId, BloodSugarData.SugarMeasurementType sugarMeasurementType) {
         return dbHelper.getBloodSugar(userId, sugarMeasurementType);
     }
 

@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by iaktas on 24.04.2017.
  */
 
-public class BloodSugar {
+public class BloodSugarData {
     @Id
     public String id; // message id
     public Date date;
@@ -16,7 +16,7 @@ public class BloodSugar {
     public String userId;
     public SugarMeasurementType sugarMeasurementType; // 1 means pre, 2 means post
 
-    public BloodSugar(String id, Date date, int value, SugarMeasurementType sugarMeasurementType) {
+    public BloodSugarData(String id, Date date, int value, SugarMeasurementType sugarMeasurementType) {
         this.id = id;
         this.date = date;
         this.value = value;

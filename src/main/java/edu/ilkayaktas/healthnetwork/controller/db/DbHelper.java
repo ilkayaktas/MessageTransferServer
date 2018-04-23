@@ -177,12 +177,12 @@ public class DbHelper implements IDbHelper {
     }
 
     @Override
-    public BloodSugar saveBloodSugar(BloodSugar bloodSugar) {
-        return bloodSugarRepository.save(bloodSugar);
+    public BloodSugarData saveBloodSugar(BloodSugarData bloodSugarData) {
+        return bloodSugarRepository.save(bloodSugarData);
     }
 
     @Override
-    public List<BloodSugar> getBloodSugar(String userId, BloodSugar.SugarMeasurementType sugarMeasurementType) {
+    public List<BloodSugarData> getBloodSugar(String userId, BloodSugarData.SugarMeasurementType sugarMeasurementType) {
         return bloodSugarRepository.getBloodSugarByUserIdAndSugarMeasurementType(userId, sugarMeasurementType);
     }
 

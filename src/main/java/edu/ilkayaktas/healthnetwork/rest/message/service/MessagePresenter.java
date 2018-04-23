@@ -1,7 +1,7 @@
 package edu.ilkayaktas.healthnetwork.rest.message.service;
 
 import edu.ilkayaktas.healthnetwork.controller.IDataManager;
-import edu.ilkayaktas.healthnetwork.model.db.BloodSugar;
+import edu.ilkayaktas.healthnetwork.model.db.BloodSugarData;
 import edu.ilkayaktas.healthnetwork.model.db.Channel;
 import edu.ilkayaktas.healthnetwork.model.db.HealthData;
 import edu.ilkayaktas.healthnetwork.model.db.Message;
@@ -49,19 +49,19 @@ public class MessagePresenter {
         return dataManager.getMessagesByChannel(channelId);
     }
 
-    public void saveHealthData(HealthData healthData){
-        dataManager.saveHealthData(healthData);
+    public HealthData saveHealthData(HealthData healthData){
+        return dataManager.saveHealthData(healthData);
     }
 
     public List<HealthData> getHealthData(String userId, HealthData.HealthDataType healthDataType){
         return dataManager.getHealthData(userId, healthDataType);
     }
 
-    public void saveBloodSugar(BloodSugar bloodSugar){
-        dataManager.saveBloodSugar(bloodSugar);
+    public BloodSugarData saveBloodSugar(BloodSugarData bloodSugarData){
+        return dataManager.saveBloodSugar(bloodSugarData);
     }
 
-    public List<BloodSugar> getBloodSugar(String userId, BloodSugar.SugarMeasurementType sugarMeasurementType){
+    public List<BloodSugarData> getBloodSugar(String userId, BloodSugarData.SugarMeasurementType sugarMeasurementType){
         return dataManager.getBloodSugar(userId, sugarMeasurementType);
     }
 }
