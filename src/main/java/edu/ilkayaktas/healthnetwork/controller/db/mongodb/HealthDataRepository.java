@@ -11,4 +11,5 @@ import java.util.List;
 
 public interface HealthDataRepository extends MongoRepository<HealthData, String> {
     List<HealthData> getHealthDataByUserIdAndHealthDataType(String userId, HealthData.HealthDataType healthDataType);
+    List<HealthData> getHealthDataByUserId(String userId);
 }
