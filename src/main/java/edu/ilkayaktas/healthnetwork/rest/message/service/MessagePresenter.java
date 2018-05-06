@@ -38,8 +38,7 @@ public class MessagePresenter {
 
     private void checkChannelExistance(Channel channel){
         try {
-            String notificationKey = dataManager.getNotificationKeyOfGroup(channel.channelName);
-            channel.notificationKey = notificationKey;
+            channel.notificationKey = dataManager.getNotificationKeyOfGroup(channel.channelName);
         } catch (IOException e) {
             e.printStackTrace();
         }
