@@ -131,6 +131,11 @@ public class DataManager implements IDataManager{
     }
 
     @Override
+    public List<Channel> getChannels() {
+        return dbHelper.getChannels();
+    }
+
+    @Override
     public Message saveMessage(Message message) {
         return dbHelper.saveMessage(message);
     }

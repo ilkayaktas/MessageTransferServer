@@ -157,6 +157,11 @@ public class DbHelper implements IDbHelper {
     }
 
     @Override
+    public List<Channel> getChannels() {
+        return channelRepository.findAll();
+    }
+
+    @Override
     public Message saveMessage(Message message) {
         return messageRepository.save(message);
     }

@@ -1,9 +1,7 @@
 package edu.ilkayaktas.healthnetwork.rest.message.service;
 
 import edu.ilkayaktas.healthnetwork.controller.IDataManager;
-import edu.ilkayaktas.healthnetwork.model.db.BloodSugarData;
 import edu.ilkayaktas.healthnetwork.model.db.Channel;
-import edu.ilkayaktas.healthnetwork.model.db.HealthData;
 import edu.ilkayaktas.healthnetwork.model.db.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,21 +44,5 @@ public class MessagePresenter {
 
     public List<Message> getMessages(String channelId){
         return dataManager.getMessagesByChannel(channelId);
-    }
-
-    public HealthData saveHealthData(HealthData healthData){
-        return dataManager.saveHealthData(healthData);
-    }
-
-    public List<HealthData> getHealthData(String userId, HealthData.HealthDataType healthDataType){
-        return dataManager.getHealthData(userId, healthDataType);
-    }
-
-    public BloodSugarData saveBloodSugar(BloodSugarData bloodSugarData){
-        return dataManager.saveBloodSugar(bloodSugarData);
-    }
-
-    public List<BloodSugarData> getBloodSugar(String userId, BloodSugarData.SugarMeasurementType sugarMeasurementType){
-        return dataManager.getBloodSugar(userId, sugarMeasurementType);
     }
 }
