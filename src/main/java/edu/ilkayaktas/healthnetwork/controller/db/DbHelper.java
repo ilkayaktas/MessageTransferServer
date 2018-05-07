@@ -192,7 +192,7 @@ public class DbHelper implements IDbHelper {
 
     @Override
     public List<BloodSugarData> getBloodSugar(String userId, BloodSugarData.SugarMeasurementType sugarMeasurementType) {
-        return bloodSugarRepository.getBloodSugarByUserIdAndSugarMeasurementType(userId, sugarMeasurementType);
+        return bloodSugarRepository.getBloodSugarByUserIdAndSugarMeasurementTypeOrderByDateDesc(userId, sugarMeasurementType);
     }
 
 }

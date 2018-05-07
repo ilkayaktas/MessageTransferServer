@@ -38,7 +38,7 @@ public class AnomalyDetector {
 
         logger.info("AnomalyDetector is started!");
 
-        Observable.interval(10, TimeUnit.SECONDS)
+        Observable.interval(60, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(aLong -> {
                     List<Channel> allChannels = getChannels();
@@ -57,6 +57,7 @@ public class AnomalyDetector {
         message.toChannelId = channel.id;
         message.id = UUID.randomUUID().toString();
         message.senderUserId = "SUCRE";
+        message.messageText = channel.channelName + " : ";
 
         if (isDataViableForAnalyse(preBloodSugarData)){
             if (preBloodSugarData.get(0).value < 50 &&
@@ -65,18 +66,17 @@ public class AnomalyDetector {
                 preBloodSugarData.get(3).value < 50 &&
                 preBloodSugarData.get(4).value < 50 ){
 
-                message.messageText = "AÇLIK ŞEKERİNDE AŞIRI DÜŞME VAR!";
-                messagePresenter.distributeMessage(message);
-
+                message.messageText += "AÇLIK ŞEKERİNDE AŞIRI DÜŞME VAR!";
             } else if(preBloodSugarData.get(0).value > 140 &&
                     preBloodSugarData.get(1).value > 140 &&
                     preBloodSugarData.get(2).value > 140 &&
                     preBloodSugarData.get(3).value > 140 &&
                     preBloodSugarData.get(4).value > 140 ){
 
-                message.messageText = "AÇLIK ŞEKERİNDE AŞIRI YÜKSELME VAR!";
-                messagePresenter.distributeMessage(message);
+                message.messageText += "AÇLIK ŞEKERİNDE AŞIRI YÜKSELME VAR!";
             }
+            messagePresenter.distributeMessage(message);
+            logger.debug(message.messageText);
         }
 
         if (isDataViableForAnalyse(postBloodSugarData)){
@@ -86,29 +86,25 @@ public class AnomalyDetector {
                 postBloodSugarData.get(3).value < 100 &&
                 postBloodSugarData.get(4).value < 100){
 
-                message.messageText = "TOKLUK ŞEKERİNDE AŞIRI DÜŞME VAR!";
-                messagePresenter.distributeMessage(message);
-
+                message.messageText += "TOKLUK ŞEKERİNDE AŞIRI DÜŞME VAR!";
             } else if(postBloodSugarData.get(0).value > 250 &&
                     postBloodSugarData.get(1).value > 250 &&
                     postBloodSugarData.get(2).value > 250 &&
                     postBloodSugarData.get(3).value > 250 &&
                     postBloodSugarData.get(4).value > 250){
 
-                message.messageText = "TOKLUK ŞEKERİNDE AŞIRI YÜKSELME VAR!";
-                messagePresenter.distributeMessage(message);
-
+                message.messageText += "TOKLUK ŞEKERİNDE AŞIRI YÜKSELME VAR!";
             }
+            messagePresenter.distributeMessage(message);
+            logger.debug(message.messageText);
+
         }
 
     }
 
-    private boolean isDataViableForAnalyse(List<BloodSugarData> preBloodSugarData) {
-        if(preBloodSugarData.size() > 5 &&
-                isLast5HoursData(preBloodSugarData.get(0).date, preBloodSugarData.get(4).date)){
-            return true;
-        }
-        return false;
+    private boolean isDataViableForAnalyse(List<BloodSugarData> bloodSugarDataList) {
+        return bloodSugarDataList.size() > 5 &&
+                isLast5HoursData(bloodSugarDataList.get(0).date, bloodSugarDataList.get(4).date);
     }
 
     public boolean isLast5HoursData(Date startDate, Date endDate){
