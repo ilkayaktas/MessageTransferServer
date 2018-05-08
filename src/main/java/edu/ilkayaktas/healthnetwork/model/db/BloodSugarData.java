@@ -1,5 +1,6 @@
 package edu.ilkayaktas.healthnetwork.model.db;
 
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
@@ -7,7 +8,7 @@ import java.util.Date;
 /**
  * Created by iaktas on 24.04.2017.
  */
-
+@ToString
 public class BloodSugarData {
     @Id
     public String id; // message id

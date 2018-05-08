@@ -67,6 +67,8 @@ public class AnomalyDetector {
                 preBloodSugarData.get(4).value < 50 ){
 
                 message.messageText += "AÇLIK ŞEKERİNDE AŞIRI DÜŞME VAR!";
+                messagePresenter.distributeMessage(message);
+                logger.debug(message.messageText);
             } else if(preBloodSugarData.get(0).value > 140 &&
                     preBloodSugarData.get(1).value > 140 &&
                     preBloodSugarData.get(2).value > 140 &&
@@ -74,9 +76,9 @@ public class AnomalyDetector {
                     preBloodSugarData.get(4).value > 140 ){
 
                 message.messageText += "AÇLIK ŞEKERİNDE AŞIRI YÜKSELME VAR!";
+                messagePresenter.distributeMessage(message);
+                logger.debug(message.messageText);
             }
-            messagePresenter.distributeMessage(message);
-            logger.debug(message.messageText);
         }
 
         if (isDataViableForAnalyse(postBloodSugarData)){
@@ -87,6 +89,8 @@ public class AnomalyDetector {
                 postBloodSugarData.get(4).value < 100){
 
                 message.messageText += "TOKLUK ŞEKERİNDE AŞIRI DÜŞME VAR!";
+                messagePresenter.distributeMessage(message);
+                logger.debug(message.messageText);
             } else if(postBloodSugarData.get(0).value > 250 &&
                     postBloodSugarData.get(1).value > 250 &&
                     postBloodSugarData.get(2).value > 250 &&
@@ -94,10 +98,9 @@ public class AnomalyDetector {
                     postBloodSugarData.get(4).value > 250){
 
                 message.messageText += "TOKLUK ŞEKERİNDE AŞIRI YÜKSELME VAR!";
+                messagePresenter.distributeMessage(message);
+                logger.debug(message.messageText);
             }
-            messagePresenter.distributeMessage(message);
-            logger.debug(message.messageText);
-
         }
 
     }

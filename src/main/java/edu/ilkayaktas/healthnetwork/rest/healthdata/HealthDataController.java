@@ -40,7 +40,7 @@ public class HealthDataController {
 
     @RequestMapping(value = "/bloodsugar/save", method = RequestMethod.POST)
     public ResponseEntity<BloodSugarData> saveBloodSugar(@RequestBody BloodSugarData bloodSugarData) {
-        logger.info("bloodsugar/save"+" bloodSugarData:"+ bloodSugarData);
+        logger.info("bloodsugar/save"+" bloodSugarData:"+ bloodSugarData.toString());
         BloodSugarData bloodSugarDataReturned = healthDataPresenter.saveBloodSugar(bloodSugarData);
         return new ResponseEntity<>(bloodSugarDataReturned, AppConstants.HTTP_STATUS_OK);
     }
