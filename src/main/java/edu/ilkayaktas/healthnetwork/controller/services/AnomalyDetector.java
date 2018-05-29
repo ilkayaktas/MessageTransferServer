@@ -38,7 +38,7 @@ public class AnomalyDetector {
 
         logger.info("AnomalyDetector is started!");
 
-        Observable.interval(60, TimeUnit.SECONDS)
+        Observable.interval(180, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(aLong -> {
                     List<Channel> allChannels = getChannels();
