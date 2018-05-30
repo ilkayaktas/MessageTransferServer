@@ -29,6 +29,7 @@ public class BloodSugarData {
     }
 
     public enum SugarMeasurementType {
+        ALL(0),
         PRE(1),
         POST(2);
 
@@ -40,15 +41,6 @@ public class BloodSugarData {
 
         public int getValue(){return value;}
 
-        public String toString(){
-            if(value == 1){
-                return "AÇLIK";
-            } else if(value == 2){
-                return "TOKLUK";
-            } else{
-                return "";
-            }
-        }
 
     }
 

@@ -10,5 +10,6 @@ import java.util.List;
  */
 
 public interface BloodSugarRepository extends MongoRepository<BloodSugarData, String> {
+    List<BloodSugarData> getBloodSugarByUserIdOrderByDateDesc(String userId);
     List<BloodSugarData> getBloodSugarByUserIdAndSugarMeasurementTypeOrderByDateDesc(String userId, BloodSugarData.SugarMeasurementType sugarMeasurementType);
 }

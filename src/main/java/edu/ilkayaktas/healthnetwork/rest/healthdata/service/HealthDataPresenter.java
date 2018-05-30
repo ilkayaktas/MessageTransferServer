@@ -36,4 +36,8 @@ public class HealthDataPresenter {
     public List<BloodSugarData> getBloodSugar(String userId, BloodSugarData.SugarMeasurementType sugarMeasurementType){
         return dataManager.getBloodSugar(userId, sugarMeasurementType);
     }
+
+    public BloodSugarData deleteBloodSugar(String bloodSugarId){
+        return dataManager.deleteBloodSugar(bloodSugarId);
+    }
 }

@@ -47,8 +47,15 @@ public class HealthDataController {
 
     @RequestMapping(value = "/bloodsugar/get", method = RequestMethod.GET)
     public ResponseEntity<List<BloodSugarData>> getBloodSugar(@RequestParam("userId") String userId, @RequestParam("sugarMeasurementType") String sugarMeasurementType) {
-        logger.info("hbloodsugar/get"+" userId:"+userId + " sugarMeasurementType:"+sugarMeasurementType);
+        logger.info("bloodsugar/get"+" userId:"+userId + " sugarMeasurementType:"+sugarMeasurementType);
         List<BloodSugarData> healthDataList = healthDataPresenter.getBloodSugar(userId, BloodSugarData.SugarMeasurementType.valueOf(sugarMeasurementType));
         return new ResponseEntity<>(healthDataList, AppConstants.HTTP_STATUS_OK);
+    }
+
+    @RequestMapping(value = "/bloodsugar/delete", method = RequestMethod.DELETE)
+    public ResponseEntity<BloodSugarData> deleteBloodSugar(@RequestParam("bloodSugarId") String bloodSugarId) {
+        logger.info("bloodsugar/delete"+" bloodSugarId:"+bloodSugarId);
+        BloodSugarData bloodSugar = healthDataPresenter.deleteBloodSugar(bloodSugarId);
+        return new ResponseEntity<>(bloodSugar, AppConstants.HTTP_STATUS_OK);
     }
 }

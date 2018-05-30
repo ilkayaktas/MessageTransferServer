@@ -166,6 +166,11 @@ public class DataManager implements IDataManager{
     }
 
     @Override
+    public BloodSugarData deleteBloodSugar(String bloodSugarId) {
+        return dbHelper.deleteBloodSugar(bloodSugarId);
+    }
+
+    @Override
     public ResponseEntity<AuthorizationData> isRequestAuthorized(String userId, String token) {
         User user = getUser(userId);
 

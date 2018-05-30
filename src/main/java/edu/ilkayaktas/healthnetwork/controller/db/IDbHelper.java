@@ -47,4 +47,5 @@ public interface IDbHelper {
     // blood sugar
     BloodSugarData saveBloodSugar(@NonNull BloodSugarData bloodSugarData);
     List<BloodSugarData> getBloodSugar(@NonNull String userId, @NonNull BloodSugarData.SugarMeasurementType sugarMeasurementType);
+    BloodSugarData deleteBloodSugar(@NonNull String bloodSugarId);
 }
